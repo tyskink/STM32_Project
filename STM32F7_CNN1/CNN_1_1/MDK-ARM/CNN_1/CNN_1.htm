@@ -3,7 +3,7 @@
 <title>Static Call Graph - [CNN_1\CNN_1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image CNN_1\CNN_1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Jul 31 16:41:44 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Jul 31 18:07:44 2017
 <BR><P>
 <H3>Maximum Stack Usage =       1808 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -520,7 +520,7 @@ Global Symbols
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_round
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_convolutional2D_2
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_convolutional2D_3
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
@@ -539,7 +539,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_convolutional2D_2
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_convolutional2D_3
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
@@ -1060,20 +1060,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;testSD_UART
 </UL>
 
-<P><STRONG><a name="[d6]"></a>LK_convolutional2D_2</STRONG> (Thumb, 272 bytes, Stack size 72 bytes, main.o(i.LK_convolutional2D_2))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = LK_convolutional2D_2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[d6]"></a>LK_convolutional2D_3</STRONG> (Thumb, 220 bytes, Stack size 64 bytes, main.o(i.LK_convolutional2D_3))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = LK_convolutional2D_3 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d8]"></a>LK_displayMatrix</STRONG> (Thumb, 102 bytes, Stack size 32 bytes, lk_fatfs.o(i.LK_displayMatrix))
+<P><STRONG><a name="[d7]"></a>LK_displayMatrix</STRONG> (Thumb, 102 bytes, Stack size 32 bytes, lk_fatfs.o(i.LK_displayMatrix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = LK_displayMatrix &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1421,11 +1420,10 @@ Global Symbols
 
 <P><STRONG><a name="[13a]"></a>__1printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
 
-<P><STRONG><a name="[d7]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
+<P><STRONG><a name="[d8]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_displayMatrix
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_convolutional2D_2
+<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_displayMatrix
 </UL>
 
 <P><STRONG><a name="[13b]"></a>__c89printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
@@ -1600,10 +1598,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;testSD_UART
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_displayMatrix
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_displayMatrix
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_convolutional2D_2
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_convolutional2D_3
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCB_EnableDCache
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_SDMMC1_SD_Init
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
