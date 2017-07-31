@@ -265,7 +265,7 @@ int main(void)
 	double out[3][3] ;
 	LK_convolutional2D_2(&a[0][0],5,5,&kernel[0][0],3,3,0,&out[0][0],3,3);
 	 
-	LK_displayMatrix(&out[0][0],3,3,"out");
+	LK_displayMatrix(&out[0][0],3,3," out");
 
   while (1)
   {

@@ -133,12 +133,12 @@ void LK_displayMatrix(LK_Accuarcy * A, int Num_of_row, int Num_of_colum,const ch
 		{
 			current_position = A + row*Num_of_colum + column;
 
-			printf_s("%.4f ", (LK_Accuarcy)*current_position);
+			printf_s(" %.4f ", (LK_Accuarcy)*current_position);
 
 			
 
 		}
-		printf_s("\r\n");
+		printf_s(" \r\n");
 	}
 }
 
