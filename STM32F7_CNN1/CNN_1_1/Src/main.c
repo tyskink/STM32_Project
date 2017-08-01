@@ -170,7 +170,7 @@ LK_UART(&huart1,"{A");
 
 		LK_matrix_multpile(&F5W[0][0],10,864,&h2[0][0][0],864,1,&h3[0]);//18.13741060
 		LK_Softmax(&h3[0], 10);//18.28499600
-		printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
+		printf_s("	Result is: %d \r\n",maxofMatrix(&h3[0], 10));//18.29939980
  	}
  LK_UART(&huart1,"{Z");	
 	
@@ -218,6 +218,111 @@ void LK_convolutional2D_1(LK_Accuarcy *input,		int isize_w, int isize_h,
 		}
 	}
 }
+
+void LK_convolutional2D_2(LK_Accuarcy *input,		int isize_w, int isize_h,
+													LK_Accuarcy* kernel,  int ksize_w, int ksize_h, LK_Accuarcy bias,
+													LK_Accuarcy *output,	int osize_w, int osize_h
+													)
+{
+	for (int h = 0; h<osize_h; h++)
+	{		
+		for (int w = 0; w<osize_w; w++)
+		{			 
+			*output =bias;  
+									for (int kh = 0; kh < ksize_h; kh++)
+									{
+										
+										for (int kw = 0; kw < ksize_w; kw++)
+										{
+											
+											*output = *output + *(input +h*isize_w+w+ kh*isize_w + kw) * *(kernel + kh*ksize_w + kw);										
+										//	printf_s("the input is %f 	kernel is %f 	output is %f\r\n",*(input +h*isize_w+w+ kh*isize_w + kw),*(kernel + kh*ksize_w + kw),*output);
+										}				
+									} 
+			output++;
+		}
+	}
+}
+
+void LK_convolutional2D_3(LK_Accuarcy *input,		int isize_w, int isize_h,
+													LK_Accuarcy* kernel,  int ksize_w, int ksize_h, LK_Accuarcy bias,
+													LK_Accuarcy *output,	int osize_w, int osize_h
+													)
+{
+	for (int h = 0; h<osize_h; h++)
+	{		
+		for (int w = 0; w<osize_w; w++)
+		{			 
+			*output =bias;  
+									for (int kh = 0; kh < ksize_h; kh++)
+									{
+										for (int kw = 0; kw < ksize_w; kw++)
+										{
+											//	*output = *output + *(input +h*isize_w+w+ kh*isize_w + kw) * *(kernel + kh*ksize_w + kw);										
+											//	printf_s("the input is %f 	kernel is %f 	output is %f\r\n",*(input +h*isize_w+w+ kh*isize_w + kw),*(kernel + kh*ksize_w + kw),*output);
+											*output = *output +(*input )*(*kernel);
+										//	printf_s("the input is %f 	kernel is %f 	output is %f\r\n",*(input),*(kernel ),*output);
+											
+											kernel++;
+											input++;
+											
+											
+										}				
+										input+=isize_w-ksize_w;
+									} 
+			output++;
+			input=input-ksize_h*isize_w+1;// basic point of input
+									
+			kernel-=ksize_w*ksize_h;
+									
+		}
+		input+=(ksize_w-1);
+	}
+}
+
+
+void LK_convolutional2D_prepara_test(LK_Accuarcy *input,		int isize_w, int isize_h,
+													LK_Accuarcy* kernel,  int ksize_w, int ksize_h, LK_Accuarcy bias,
+													LK_Accuarcy *output,	int osize_w, int osize_h,
+													int	input_jump,int input_backup,int input_jumpout,int kernel_backup
+													)
+{
+//	int input_jump=isize_w-ksize_w;
+//	int input_backup=ksize_h*isize_w-1;
+//	int input_jumpout=(ksize_w-1);
+//	int kernel_backup=ksize_w*ksize_h;
+//	#define input_jump 2
+//	#define input_backup 14
+//	#define input_jumpout 2
+//	#define kernel_backup 9
+	
+	for (int h = 0; h<osize_h; h++)
+	{		
+		for (int w = 0; w<osize_w; w++)
+		{			 
+			*output =bias;  
+									for (int kh = 0; kh < ksize_h; kh++)
+									{
+										for (int kw = 0; kw < ksize_w; kw++)
+										{
+											//	*output = *output + *(input +h*isize_w+w+ kh*isize_w + kw) * *(kernel + kh*ksize_w + kw);										
+											//	printf_s("the input is %f 	kernel is %f 	output is %f\r\n",*(input +h*isize_w+w+ kh*isize_w + kw),*(kernel + kh*ksize_w + kw),*output);
+											*output = *output +(*input )*(*kernel);
+												//printf_s("the input is %f 	kernel is %f 	output is %f\r\n",*(input),*(kernel ),*output);										
+											kernel++;
+											input++;
+										}				
+										input+=input_jump;
+									} 
+			output++;
+			input-=input_backup;// basic point of input									
+			kernel-=kernel_backup;
+									
+		}
+		input+=input_jumpout;
+	}
+}
+
 int main(void)
 {
 	
@@ -234,12 +339,22 @@ int main(void)
 	
 	
  // heaptest();
- //	 Model_CNN_ICRSF();
-	double a[5][5] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
-	double kernel[3][3] = { 1,0,1,0,1,0,1,0,1 };
-	double out[3][3] ;
-	LK_convolutional2D_1(&a[0][0],5,5,&kernel[0][0],3,3,0,&out[0][0],3,3);
-	LK_displayMatrix(&out[0][0],3,3,"out");
+  Model_CNN_ICRSF();
+	
+//	double a[10][10] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
+//	
+//		LK_displayMatrix(&a[0][0],10,10," a");
+//		  double kernel[10][10] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
+//		//double kernel[5][5] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
+//		//double kernel[3][3] = { 1,0,1,0,1,0,1,0,1 };
+//	double out[1][1] ;
+//	LK_convolutional2D_2(&a[0][0],10,10,&kernel[0][0],10,10,0,&out[0][0],1,1);
+//	 
+//	LK_displayMatrix(&out[0][0],1,1," out");
+
+
+
+
 
   while (1)
   {
