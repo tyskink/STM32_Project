@@ -198,7 +198,7 @@ void heaptest()
 int main(void)
 {
 	
-   SCB_EnableICache();
+  SCB_EnableICache();
   SCB_EnableDCache();
   HAL_Init();
   SystemClock_Config();
@@ -211,15 +211,21 @@ int main(void)
 	
 	
  // heaptest();
- //	 Model_CNN_ICRSF();
+//	 Model_CNN_ICRSF();
 	
-	double a[5][5] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
-	double kernel[5] = { 1,0,1,0,1};
-	double bias[5]={0.1,0.1,0.1,0.1,0.1};
-	double out[5] ;
-	LK_FullyConnect(&a[0][0],5,5,&kernel[0],&out[0],&bias[0]);
-	LK_displayMatrix(&out[0],5,1," out");
-
+	FIL File_X;
+	uint32_t bytesread; 
+	FRESULT res; 	
+	f_open(&File_X, (const TCHAR*)"CNN_ZcCoReSuFuSm/F5W.lkd", FA_READ); 
+	
+	
+	LK_Accuarcy W[100];			res= f_read(&File_X, &W[0], 100*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
+	LK_Accuarcy X[10];				res= f_read(&File_X, &X[0], 10*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
+	LK_Accuarcy B[10];				res= f_read(&File_X, &B[0], 10*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
+	LK_Accuarcy out[5];
+	LK_FullyConnect(&W[0],10,10,&X[0],&out[0],&B[0]);
+	LK_displayMatrix(&out[0],10,1," out");
+	
   while (1)
   {
  
