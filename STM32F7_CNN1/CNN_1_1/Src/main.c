@@ -194,30 +194,7 @@ void heaptest()
 }
 
 
-void LK_convolutional2D_1(LK_Accuarcy *input,		int isize_w, int isize_h,
-													LK_Accuarcy* kernel,  int ksize_w, int ksize_h, LK_Accuarcy bias,
-													LK_Accuarcy *output,	int osize_w, int osize_h
-													)
-{
-
-	LK_Accuarcy *o_p;
-	for (int h = 0; h<osize_h; h++)
-	{		
-		for (int w = 0; w<osize_w; w++)
-		{
-			o_p = output + osize_w*h + w;
-			*o_p =0;  
-			for (int kh = 0; kh < ksize_h; kh++)
-			{
-				for (int kw = 0; kw < ksize_w; kw++)
-				{
-					*o_p = *o_p + *(input +h*isize_w+w+ kh*isize_w + kw) * *(kernel + kh*ksize_w + kw);
-				}				
-			} 
-			*o_p += bias;
-		}
-	}
-}
+ 
 int main(void)
 {
 	
@@ -235,11 +212,13 @@ int main(void)
 	
  // heaptest();
  //	 Model_CNN_ICRSF();
+	
 	double a[5][5] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
-	double kernel[3][3] = { 1,0,1,0,1,0,1,0,1 };
-	double out[3][3] ;
-	LK_convolutional2D_1(&a[0][0],5,5,&kernel[0][0],3,3,0,&out[0][0],3,3);
-	LK_displayMatrix(&out[0][0],3,3,"out");
+	double kernel[5] = { 1,0,1,0,1};
+	double bias[5]={0.1,0.1,0.1,0.1,0.1};
+	double out[5] ;
+	LK_FullyConnect(&a[0][0],5,5,&kernel[0],&out[0],&bias[0]);
+	LK_displayMatrix(&out[0],5,1," out");
 
   while (1)
   {
