@@ -297,6 +297,68 @@ static void MX_USART1_UART_Init(void)
 //  HAL_NVIC_EnableIRQ(SD_DMAx_Tx_IRQn);
 //}
 
+
+
+//-------------------------------------------------------------------------  Checking Board -----------------------
+
+void FPUCheck(void) // sourcer32@gmail.com
+{
+  uint32_t mvfr0;
+
+  printf(" %08X %08X %08X\r\n%08X %08X %08X\r\n",
+    *(volatile uint32_t *)0xE000EF34,   // FPCCR  0xC0000000
+    *(volatile uint32_t *)0xE000EF38,   // FPCAR
+    *(volatile uint32_t *)0xE000EF3C,   // FPDSCR
+    *(volatile uint32_t *)0xE000EF40,   // MVFR0  0x10110021 vs 0x10110221
+    *(volatile uint32_t *)0xE000EF44,   // MVFR1  0x11000011 vs 0x12000011
+    *(volatile uint32_t *)0xE000EF48);  // MVFR2  0x00000040
+
+  mvfr0 = *(volatile uint32_t *)0xE000EF40;
+
+  switch(mvfr0)
+  {
+    case 0x10110021 : printf("  FPU-S Single-precision only\r\n"); break;
+    case 0x10110221 : printf("  FPU-D Single-precision and Double-precision\r\n"); break;
+    default : puts("  Unknown FPU");
+  }
+}
+
+//****************************************************************************
+
+void CORECheck(void) // sourcer32@gmail.com
+{
+  uint32_t cpuid = SCB->CPUID;
+  uint32_t var, pat;
+
+  printf("  CPUID %08X DEVID %03X\r\n", cpuid, DBGMCU->IDCODE & 0xFFF);
+
+  pat = (cpuid & 0x0000000F);
+  var = (cpuid & 0x00F00000) >> 20;
+
+  if ((cpuid & 0xFF000000) == 0x41000000) // ARM
+  {
+    switch((cpuid & 0x0000FFF0) >> 4)
+    {
+      case 0xC20 : printf("  Cortex M0 r%dp%d\r\n", var, pat); break;
+      case 0xC60 : printf("  Cortex M0+ r%dp%d\r\n", var, pat); break;
+      case 0xC21 : printf("  Cortex M1 r%dp%d\r\n", var, pat); break;
+      case 0xC23 : printf("  Cortex M3 r%dp%d\r\n", var, pat); break;
+      case 0xC24 : printf("  Cortex M4 r%dp%d\r\n", var, pat); break;
+      case 0xC27 : printf("  Cortex M7 r%dp%d\r\n", var, pat); break;
+
+      default : puts("  Unknown CORE");
+    }
+  }
+  else
+    puts("  Unknown CORE IMPLEMENTER");
+}
+
+
+
+
+
+
+
 #if LK_UsingtheCubeMX
 //--------------------------------------------------------------------------  System API -------------------------------------------------------------------------------
 /**

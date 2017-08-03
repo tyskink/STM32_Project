@@ -207,7 +207,8 @@ int main(void)
   MX_SDMMC1_SD_Init();
 	testSD_UART();
 	
- 
+  FPUCheck();
+ CORECheck();
 	
 	
  // heaptest();

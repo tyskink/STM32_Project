@@ -66,7 +66,8 @@ void LK_Printf(const char *dataString);
  void SystemClock_Config(void);
 #endif
 
-
+void FPUCheck(void);
+void CORECheck(void);
 
 
 
