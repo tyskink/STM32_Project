@@ -73,21 +73,21 @@ void Model_CNN_ICRSF()
 	LK_Accuarcy* Test_feature;	
 	Test_feature=(LK_Accuarcy*)malloc(784*8);  	
 	
-	f_open(&File_X, (const TCHAR*)"DataSet/MNIST_test_features_60000_784_scale.lkd", FA_READ); 
-	int input=10000;
+			f_open(&File_X, (const TCHAR*)"DataSet/MNIST_test_features_10000_784_scale.lkf", FA_READ); 
+			int input=10000;
 	
 	
 			LK_Accuarcy h3[10] = {0};//18.13738780
 			LK_Accuarcy F5W[10][864] = { 0 };  // 17.49826970  THIS Step require a large stack area, which may let the file system not work.
-LK_UART(&huart1,"{A");	
+			LK_UART(&huart1,"{A");	
  while(input--)
  {
 	 
-	f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/Zc.lkd", FA_READ); 
-	LK_Accuarcy* ZeroCenter_Parameters;
-	ZeroCenter_Parameters=(LK_Accuarcy*)malloc(784*8);  
-		f_read(&File_X, Test_feature, 784*8, (UINT*)&bytesread); 
-		f_read(&File_In, ZeroCenter_Parameters, 28*28*8, (UINT*)&bytesread); 
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/Zc.lkf", FA_READ); 
+		LK_Accuarcy* ZeroCenter_Parameters;
+		ZeroCenter_Parameters=(LK_Accuarcy*)malloc(784*4);  
+		f_read(&File_X, Test_feature, 784*4, (UINT*)&bytesread); 
+		f_read(&File_In, ZeroCenter_Parameters, 28*28*4, (UINT*)&bytesread); 
 	
 
 		
@@ -99,60 +99,60 @@ LK_UART(&huart1,"{A");
 
 		LK_Accuarcy* h1;
 		
-		h1=(LK_Accuarcy*)malloc(576*8);  
+		h1=(LK_Accuarcy*)malloc(576*4);  
 		//memset(h1,0,578*8);
 		LK_Accuarcy* C1K;
 		LK_Accuarcy* C1B;
-		C1K=(LK_Accuarcy*)malloc(25*8);  
-		C1B=(LK_Accuarcy*)malloc(6*8); 
+		C1K=(LK_Accuarcy*)malloc(25*4);  
+		C1B=(LK_Accuarcy*)malloc(6*4); 
 		LK_Accuarcy h2[6][12][12] = { 0 };//	
 		
-		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1B.lkd", FA_READ);//   
-		f_read(&File_In, C1B, 6*8, (UINT*)&bytesread);// 
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1B.lkf", FA_READ);//   
+		f_read(&File_In, C1B, 6*4, (UINT*)&bytesread);// 
 		f_close(&File_In);//	
 		
-		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K1.lkd", FA_READ);//	
-		f_read(&File_In, C1K, 25*8, (UINT*)&bytesread);//15.007678920
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K1.lkf", FA_READ);//	
+		f_read(&File_In, C1K, 25*4, (UINT*)&bytesread);//15.007678920
 		LK_convolutional2D(Test_feature, 28, 28, C1K, 5, 5, C1B[0], h1, 24, 24, 0);//	
 		LK_ReLu(h1,576);//	
 		LK_Pooling_Max(h1, 24, 24, 2, 2, 2, 2, &h2[0][0][0], 12, 12, 1, 0);//	
 		f_close(&File_In);		//	
 
 		
-		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K2.lkd", FA_READ);//	
-		f_read(&File_In, C1K, 25*8, (UINT*)&bytesread);//	
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K2.lkf", FA_READ);//	
+		f_read(&File_In, C1K, 25*4, (UINT*)&bytesread);//	
 		LK_convolutional2D(Test_feature, 28, 28, C1K, 5, 5, C1B[1], h1, 24, 24, 0);//	
 		LK_ReLu(h1,576);//15.85027270
 		LK_Pooling_Max(h1, 24, 24, 2, 2, 2, 2, &h2[1][0][0], 12, 12, 1, 0);//	
 		f_close(&File_In);			//	
 		
 			 
-		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K3.lkd", FA_READ);//	
-		f_read(&File_In, C1K, 25*8, (UINT*)&bytesread);//15.89225950
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K3.lkf", FA_READ);//	
+		f_read(&File_In, C1K, 25*4, (UINT*)&bytesread);//15.89225950
 		LK_convolutional2D(Test_feature, 28, 28, C1K, 5, 5, C1B[2], h1, 24, 24, 0);//	
 		LK_ReLu(h1,576);//	
 		LK_Pooling_Max(h1, 24, 24, 2, 2, 2, 2, &h2[2][0][0], 12, 12, 1, 0);//	
 		f_close(&File_In);	//	
 		
 			 
-		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K4.lkd", FA_READ);//	
-		f_read(&File_In, C1K, 25*8, (UINT*)&bytesread);//16.30548030
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K4.lkf", FA_READ);//	
+		f_read(&File_In, C1K, 25*4, (UINT*)&bytesread);//16.30548030
 		LK_convolutional2D(Test_feature, 28, 28, C1K, 5, 5, C1B[3], h1, 24, 24, 0);//16.32089860
 		LK_ReLu(h1,576);//16.67162470
 		LK_Pooling_Max(h1, 24, 24, 2, 2, 2, 2, &h2[3][0][0], 12, 12, 1, 0);//16.67405460
 		f_close(&File_In);	//16.67957950
 		
 			 
-		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K5.lkd", FA_READ);//16.67989070
-		f_read(&File_In, C1K, 25*8, (UINT*)&bytesread);//16.71324120
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K5.lkf", FA_READ);//16.67989070
+		f_read(&File_In, C1K, 25*4, (UINT*)&bytesread);//16.71324120
 		LK_convolutional2D(Test_feature, 28, 28, C1K, 5, 5, C1B[4], h1, 24, 24, 0);//16.72867150
 		LK_ReLu(h1,576);//17.08500000
 		LK_Pooling_Max(h1, 24, 24, 2, 2, 2, 2, &h2[4][0][0], 12, 12, 1, 0);//17.08737350
 		f_close(&File_In);	//17.09256030
 		
 			 
-		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K6.lkd", FA_READ);//17.09287550
-		f_read(&File_In, C1K, 25*8, (UINT*)&bytesread);//17.12623510
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K6.lkf", FA_READ);//17.09287550
+		f_read(&File_In, C1K, 25*4, (UINT*)&bytesread);//17.12623510
 		LK_convolutional2D(Test_feature, 28, 28, C1K, 5, 5, C1B[5], h1, 24, 24, 0);//17.14163070
 		LK_ReLu(h1,576);//17.48993250
 		LK_Pooling_Max(h1, 24, 24, 2, 2, 2, 2, &h2[5][0][0], 12, 12, 1, 0);//17.49238840
@@ -163,8 +163,8 @@ LK_UART(&huart1,"{A");
 		free(C1B);//17.49825310
 		free(h1);//17.48826380
 
-		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/F5W.lkd", FA_READ);//17.51211470
-		f_read(&File_In, &F5W[0][0], 864*10*8, (UINT*)&bytesread);//17.54604290
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/F5W.lkf", FA_READ);//17.51211470
+		f_read(&File_In, &F5W[0][0], 864*10*4, (UINT*)&bytesread);//17.54604290
 		f_close(&File_In);//18.13709340
 		
 
@@ -212,21 +212,21 @@ int main(void)
 	
 	
  // heaptest();
-//	 Model_CNN_ICRSF();
+	 Model_CNN_ICRSF();
 	
-	FIL File_X;
-	uint32_t bytesread; 
-	FRESULT res; 	
-	f_open(&File_X, (const TCHAR*)"CNN_ZcCoReSuFuSm/F5W.lkd", FA_READ); 
-	
-	
-	LK_Accuarcy W[100];			res= f_read(&File_X, &W[0], 100*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
-	LK_Accuarcy X[10];				res= f_read(&File_X, &X[0], 10*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
-	LK_Accuarcy B[10];				res= f_read(&File_X, &B[0], 10*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
-	LK_Accuarcy out[5];
-	LK_FullyConnect(&W[0],10,10,&X[0],&out[0],&B[0]);
-	LK_displayMatrix(&out[0],10,1," out");
-	
+//	FIL File_X;
+//	uint32_t bytesread; 
+//	FRESULT res; 	
+//	f_open(&File_X, (const TCHAR*)"CNN_ZcCoReSuFuSm/F5W.lkd", FA_READ); 
+//	
+//	
+//	LK_Accuarcy W[100];			res= f_read(&File_X, &W[0], 100*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
+//	LK_Accuarcy X[10];				res= f_read(&File_X, &X[0], 10*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
+//	LK_Accuarcy B[10];				res= f_read(&File_X, &B[0], 10*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
+//	LK_Accuarcy out[5];
+//	LK_FullyConnect(&W[0],10,10,&X[0],&out[0],&B[0]);
+//	LK_displayMatrix(&out[0],10,1," out");
+//	
   while (1)
   {
  
