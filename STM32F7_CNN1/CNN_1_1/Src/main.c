@@ -78,7 +78,9 @@ void Model_CNN_ICRSF()
 	
 	
 			LK_Accuarcy h3[10] = {0};//18.13738780
-			LK_Accuarcy F5W[10][864] = { 0 };  // 17.49826970  THIS Step require a large stack area, which may let the file system not work.
+			LK_Accuarcy F5W[10][864] = { 0 };  //   THIS Step require a large stack area, which may let the file system not work.
+			LK_Accuarcy F5B[10];
+			
 			LK_UART(&huart1,"{A");	
  while(input--)
  {
@@ -167,14 +169,30 @@ void Model_CNN_ICRSF()
 		f_read(&File_In, &F5W[0][0], 864*10*4, (UINT*)&bytesread);//17.54604290
 		f_close(&File_In);//18.13709340
 		
-
-		LK_matrix_multpile(&F5W[0][0],10,864,&h2[0][0][0],864,1,&h3[0]);//18.13741060
+		
+		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/F5B.lkf", FA_READ);
+		f_read(&File_In, &F5B[0], 10*4, (UINT*)&bytesread);
+		f_close(&File_In);
+		
+		//LK_matrix_multpile(&F5W[0][0],10,864,&h2[0][0][0],864,1,&h3[0]);//18.13741060
+		
+		LK_FullyConnect(&F5W[0][0],10,864,&h2[0][0][0],&h3[0],&F5B[0]);
+		
 		LK_Softmax(&h3[0], 10);//18.28499600
 		printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
  	}
  LK_UART(&huart1,"{Z");	
 	
 }//18.32246530   or 4.74134970  46486762  47366363   **46471409   **47359281
+
+
+
+
+
+
+
+
+
 
 void heaptest()
 {

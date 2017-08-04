@@ -3,7 +3,7 @@
 <title>Static Call Graph - [CNN_1\CNN_1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image CNN_1\CNN_1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Aug 04 17:09:48 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Aug 04 17:28:59 2017
 <BR><P>
 <H3>Maximum Stack Usage =      40296 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1075,6 +1075,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;testSD_UART
 </UL>
 
+<P><STRONG><a name="[e8]"></a>LK_FullyConnect</STRONG> (Thumb, 66 bytes, Stack size 20 bytes, lkml_math.o(i.LK_FullyConnect))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LK_FullyConnect
+</UL>
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Model_CNN_ICRSF
+</UL>
+
 <P><STRONG><a name="[e7]"></a>LK_Pooling_Max</STRONG> (Thumb, 148 bytes, Stack size 36 bytes, lkml_math.o(i.LK_Pooling_Max))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = LK_Pooling_Max
 </UL>
@@ -1114,12 +1120,6 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Model_CNN_ICRSF
 </UL>
 
-<P><STRONG><a name="[e8]"></a>LK_matrix_multpile</STRONG> (Thumb, 116 bytes, Stack size 36 bytes, lkml_math.o(i.LK_matrix_multpile))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = LK_matrix_multpile
-</UL>
-<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Model_CNN_ICRSF
-</UL>
-
 <P><STRONG><a name="[de]"></a>MX_USART1_UART_Init</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, lk_stm32.o(i.MX_USART1_UART_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = MX_USART1_UART_Init &rArr; HAL_UART_Init &rArr; HAL_UART_MspInit &rArr; HAL_NVIC_SetPriority &rArr; NVIC_SetPriority
 </UL>
@@ -1129,20 +1129,20 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e0]"></a>Model_CNN_ICRSF</STRONG> (Thumb, 1452 bytes, Stack size 39456 bytes, main.o(i.Model_CNN_ICRSF))
+<P><STRONG><a name="[e0]"></a>Model_CNN_ICRSF</STRONG> (Thumb, 1492 bytes, Stack size 39456 bytes, main.o(i.Model_CNN_ICRSF))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40296<LI>Call Chain = Model_CNN_ICRSF &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;maxofMatrix
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_matrix_multpile
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_convolutional2D
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_ZeroCenter
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_UART
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_Softmax
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_ReLu
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_Pooling_Max
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_FullyConnect
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
