@@ -942,13 +942,13 @@ ARM Macro Assembler    Page 15
   483 0000001C                 END
               00000000 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7 --fpu=SoftVFP
- --apcs=interwork --depend=cnn_1\startup_stm32f746xx.d -ocnn_1\startup_stm32f74
-6xx.o -I.\RTE\_CNN_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\K
-eil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Incl
-ude --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 523" --
-predefine="_RTE_ SETA 1" --predefine="STM32F746xx SETA 1" --list=startup_stm32f
-746xx.lst startup_stm32f746xx.s
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.sp --apcs=
+interwork --depend=cnn_1\startup_stm32f746xx.d -ocnn_1\startup_stm32f746xx.o -I
+.\RTE\_CNN_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\A
+RM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include --pr
+edefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 523" --predefin
+e="_RTE_ SETA 1" --predefine="STM32F746xx SETA 1" --list=startup_stm32f746xx.ls
+t startup_stm32f746xx.s
 
 
 
@@ -2189,4 +2189,4 @@ Symbol: __main
       At line 206 in file startup_stm32f746xx.s
 Comment: __main used once
 2 symbols
-460 symbols in table
+461 symbols in table
