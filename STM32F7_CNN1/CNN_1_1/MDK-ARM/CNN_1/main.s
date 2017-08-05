@@ -112,6 +112,9 @@ MX_SDMMC1_SD_Init PROC
 
         AREA ||i.Model_CNN_ICRSF||, CODE, READONLY, ALIGN=2
 
+        REQUIRE _printf_percent
+        REQUIRE _printf_d
+        REQUIRE _printf_int_dec
 Model_CNN_ICRSF PROC
         PUSH     {r4,lr}
         SUB      sp,sp,#0x9a00
@@ -137,7 +140,7 @@ Model_CNN_ICRSF PROC
         ADR      r1,|L4.1088|
         LDR      r0,|L4.1092|
         BL       LK_UART
-        B        |L4.1592|
+        B        |L4.1614|
 |L4.82|
         MOVS     r2,#1
         ADR      r1,|L4.1096|
@@ -538,7 +541,7 @@ Model_CNN_ICRSF PROC
         LDR      r0,[sp,#0xe44]
         BL       free
         MOVS     r2,#1
-        ADR      r1,|L4.1632|
+        ADR      r1,|L4.1652|
         MOV      r0,#0x95a8
         ADD      r0,r0,sp
         BL       f_open
@@ -552,7 +555,7 @@ Model_CNN_ICRSF PROC
         ADD      r0,r0,sp
         BL       f_close
         MOVS     r2,#1
-        ADR      r1,|L4.1660|
+        ADR      r1,|L4.1680|
         MOV      r0,#0x95a8
         ADD      r0,r0,sp
         BL       f_open
@@ -578,8 +581,16 @@ Model_CNN_ICRSF PROC
         MOV      r0,#0x9574
         ADD      r0,r0,sp
         BL       LK_Softmax
+        MOVS     r1,#0xa
+        MOV      r0,#0x9574
+        ADD      r0,r0,sp
+        BL       maxofMatrix
+        MOV      r1,r0
+        STR      r0,[sp,#0xb8]
+        ADR      r0,|L4.1708|
+        BL       __2printf
         NOP      
-|L4.1592|
+|L4.1614|
         ADD      r0,sp,#0x9000
         LDR      r1,[r0,#0x59c]
         SUBS     r0,r1,#1
@@ -587,28 +598,30 @@ Model_CNN_ICRSF PROC
         STR      r0,[r2,#0x59c]
         CMP      r1,#0
         BNE      |L4.82|
-        ADR      r1,|L4.1688|
-        LDR      r0,|L4.1692|
+        ADR      r1,|L4.1724|
+        LDR      r0,|L4.1728|
         BL       LK_UART
         ADD      sp,sp,#0x9a00
         POP      {r4,pc}
         ENDP
 
-        DCW      0x0000
-|L4.1632|
+|L4.1652|
         DCB      "CNN_ZcCoReSuFuSm/F5W.lkf",0
         DCB      0
         DCB      0
         DCB      0
-|L4.1660|
+|L4.1680|
         DCB      "CNN_ZcCoReSuFuSm/F5B.lkf",0
         DCB      0
         DCB      0
         DCB      0
-|L4.1688|
+|L4.1708|
+        DCB      "\tResult is: %d",0
+        DCB      0
+|L4.1724|
         DCB      "{Z",0
         DCB      0
-|L4.1692|
+|L4.1728|
         DCD      huart1
 
         AREA ||i.SCB_EnableDCache||, CODE, READONLY, ALIGN=2
@@ -971,10 +984,11 @@ __ARM_use_no_argv EQU 0
         IMPORT LK_Pooling_Max [CODE]
         IMPORT LK_FullyConnect [CODE]
         IMPORT LK_Softmax [CODE]
-        IMPORT huart1 [DATA]
+        IMPORT maxofMatrix [CODE]
         IMPORT _printf_percent [CODE]
         IMPORT _printf_d [CODE]
         IMPORT _printf_int_dec [CODE]
+        IMPORT huart1 [DATA]
         IMPORT HAL_RCC_OscConfig [CODE]
         IMPORT HAL_PWREx_EnableOverDrive [CODE]
         IMPORT HAL_RCC_ClockConfig [CODE]

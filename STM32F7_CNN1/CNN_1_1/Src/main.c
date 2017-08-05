@@ -179,7 +179,7 @@ void Model_CNN_ICRSF()
 		LK_FullyConnect(&F5W[0][0],10,864,&h2[0][0][0],&h3[0],&F5B[0]);
 		
 		LK_Softmax(&h3[0], 10);//18.28499600
-		//printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
+		printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
  	}
  LK_UART(&huart1,"{Z");	
 	
