@@ -74,7 +74,7 @@ void Model_CNN_ICRSF()
 	Test_feature=(LK_Accuarcy*)malloc(784*8);  	
 	
 			f_open(&File_X, (const TCHAR*)"DataSet/MNIST_test_features_10000_784_scale.lkf", FA_READ); 
-			int input=1000;
+			int input=10000;
 	
 	
 			LK_Accuarcy h3[10] = {0};//18.13738780

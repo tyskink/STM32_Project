@@ -124,7 +124,7 @@ Model_CNN_ICRSF PROC
         MOV      r0,#0x97d4
         ADD      r0,r0,sp
         BL       f_open
-        MOV      r0,#0x3e8
+        MOV      r0,#0x2710
         ADD      r1,sp,#0x9000
         STR      r0,[r1,#0x59c]
         MOVS     r1,#0x28
