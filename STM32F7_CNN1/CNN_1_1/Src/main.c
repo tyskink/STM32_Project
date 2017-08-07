@@ -54,6 +54,7 @@
 #include "LK_STM32.h"
 #include <stdlib.h>	/* malloc */
 #include <string.h> /* memset */
+#include "LKML_DecisionTree.h"
 SD_HandleTypeDef hsd1;
 
 
@@ -230,21 +231,9 @@ int main(void)
 	
 	
  // heaptest();
-	 Model_CNN_ICRSF();
-	
-//	FIL File_X;
-//	uint32_t bytesread; 
-//	FRESULT res; 	
-//	f_open(&File_X, (const TCHAR*)"CNN_ZcCoReSuFuSm/F5W.lkd", FA_READ); 
-//	
-//	
-//	LK_Accuarcy W[100];			res= f_read(&File_X, &W[0], 100*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
-//	LK_Accuarcy X[10];				res= f_read(&File_X, &X[0], 10*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
-//	LK_Accuarcy B[10];				res= f_read(&File_X, &B[0], 10*8, (UINT*)&bytesread); 	printf_s(" read:  %d. result %d \r\n",bytesread,res);
-//	LK_Accuarcy out[5];
-//	LK_FullyConnect(&W[0],10,10,&X[0],&out[0],&B[0]);
-//	LK_displayMatrix(&out[0],10,1," out");
-//	
+	// Model_CNN_ICRSF();
+
+	DecisionTree_Model_1();
   while (1)
   {
  
