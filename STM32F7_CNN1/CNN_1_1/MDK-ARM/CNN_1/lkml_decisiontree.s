@@ -23,84 +23,62 @@ DecisionTree_Model_1 PROC
 
 node1 PROC
         PUSH     {r4-r6,lr}
-        LDR      r1,|L2.64|
+        LDR      r1,|L2.36|
         LDR      r0,[r1,#0x57c]  ; x
         BL       __aeabi_f2d
         MOV      r4,r0
-        LDR      r2,|L2.68|
-        LDR      r3,|L2.72|
+        LDR      r2,|L2.40|
+        LDR      r3,|L2.44|
         BL       __aeabi_cdcmple
         BCS      |L2.30|
         BL       node2
-        B        |L2.62|
+        B        |L2.34|
 |L2.30|
-        LDR      r1,|L2.64|
-        LDR      r0,[r1,#0x57c]  ; x
-        BL       __aeabi_f2d
-        MOV      r4,r0
-        LDR      r2,|L2.68|
-        LDR      r3,|L2.72|
-        BL       __aeabi_cdrcmple
-        BHI      |L2.58|
         BL       node3
-        B        |L2.62|
-|L2.58|
-        BL       node1
-|L2.62|
+|L2.34|
         POP      {r4-r6,pc}
         ENDP
 
-|L2.64|
+|L2.36|
         DCD      x
-|L2.68|
+|L2.40|
         DCD      0xed20296b
-|L2.72|
+|L2.44|
         DCD      0x3fe0807f
 
         AREA ||i.node2||, CODE, READONLY, ALIGN=2
 
 node2 PROC
         PUSH     {r4-r6,lr}
-        LDR      r1,|L3.68|
+        LDR      r1,|L3.40|
         LDR      r0,[r1,#0x8e4]  ; x
         BL       __aeabi_f2d
         MOV      r4,r0
-        LDR      r2,|L3.72|
-        LDR      r3,|L3.76|
+        LDR      r2,|L3.44|
+        LDR      r3,|L3.48|
         BL       __aeabi_cdcmple
         BCS      |L3.32|
-        ADR      r0,|L3.80|
+        ADR      r0,|L3.52|
         BL       __2printf
-        B        |L3.66|
+        B        |L3.38|
 |L3.32|
-        LDR      r1,|L3.68|
-        LDR      r0,[r1,#0x8e4]  ; x
-        BL       __aeabi_f2d
-        MOV      r4,r0
-        LDR      r2,|L3.72|
-        LDR      r3,|L3.76|
-        BL       __aeabi_cdrcmple
-        BHI      |L3.62|
-        ADR      r0,|L3.92|
+        ADR      r0,|L3.64|
         BL       __2printf
-        B        |L3.66|
-|L3.62|
-        BL       node2
-|L3.66|
+|L3.38|
         POP      {r4-r6,pc}
         ENDP
 
-|L3.68|
+|L3.40|
         DCD      x
-|L3.72|
+|L3.44|
         DCD      0xbf30570b
-|L3.76|
+|L3.48|
         DCD      0x3f60100d
-|L3.80|
+|L3.52|
         DCB      "  class 1",0
         DCB      0
         DCB      0
-|L3.92|
+|L3.64|
         DCB      "  class 2",0
         DCB      0
         DCB      0
@@ -109,42 +87,31 @@ node2 PROC
 
 node3 PROC
         PUSH     {r4-r6,lr}
-        LDR      r1,|L4.68|
+        LDR      r1,|L4.40|
         LDR      r0,[r1,#0x7a8]  ; x
         BL       __aeabi_f2d
         MOV      r4,r0
-        LDR      r2,|L4.72|
-        LDR      r3,|L4.76|
+        LDR      r2,|L4.44|
+        LDR      r3,|L4.48|
         BL       __aeabi_cdcmple
         BCS      |L4.32|
-        ADR      r0,|L4.80|
+        ADR      r0,|L4.52|
         BL       __2printf
-        B        |L4.66|
+        B        |L4.38|
 |L4.32|
-        LDR      r1,|L4.68|
-        LDR      r0,[r1,#0x7a8]  ; x
-        BL       __aeabi_f2d
-        MOV      r4,r0
-        LDR      r2,|L4.72|
-        LDR      r3,|L4.76|
-        BL       __aeabi_cdrcmple
-        BHI      |L4.62|
-        ADR      r0,|L4.80|
+        ADR      r0,|L4.52|
         BL       __2printf
-        B        |L4.66|
-|L4.62|
-        BL       node3
-|L4.66|
+|L4.38|
         POP      {r4-r6,pc}
         ENDP
 
-|L4.68|
+|L4.40|
         DCD      x
-|L4.72|
+|L4.44|
         DCD      0xd755bccb
-|L4.76|
+|L4.48|
         DCD      0x3fba9aa1
-|L4.80|
+|L4.52|
         DCB      "  class 1",0
         DCB      0
         DCB      0
@@ -204,7 +171,6 @@ x
         IMPORT __aeabi_f2d [CODE]
         IMPORT __aeabi_cdcmple [CODE]
         IMPORT __2printf [CODE]
-        IMPORT __aeabi_cdrcmple [CODE]
 
         ATTR FILESCOPE
         ATTR SETVALUE Tag_ABI_PCS_wchar_t,2

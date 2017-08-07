@@ -3,7 +3,7 @@
 <title>Static Call Graph - [CNN_1\CNN_1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image CNN_1\CNN_1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sat Aug 05 18:21:29 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Aug 07 20:36:10 2017
 <BR><P>
 <H3>Maximum Stack Usage =       1440 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -18,9 +18,6 @@ Mutually Recursive functions
  <LI><a href="#[5]">UsageFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[5]">UsageFault_Handler</a><BR>
  <LI><a href="#[7]">DebugMon_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[7]">DebugMon_Handler</a><BR>
  <LI><a href="#[1c]">ADC_IRQHandler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1c]">ADC_IRQHandler</a><BR>
- <LI><a href="#[12b]">node3</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[12b]">node3</a><BR>
- <LI><a href="#[12a]">node2</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[12a]">node2</a><BR>
- <LI><a href="#[92]">node1</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[92]">node1</a><BR>
 </UL>
 <P>
 <H3>
@@ -521,13 +518,6 @@ Global Symbols
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
 </UL>
 
-<P><STRONG><a name="[f5]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, cdrcmple.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node3
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node2
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
-</UL>
-
 <P><STRONG><a name="[135]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
 
 <P><STRONG><a name="[f8]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
@@ -580,6 +570,10 @@ Global Symbols
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
+</UL>
+
+<P><STRONG><a name="[f5]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, cdrcmple.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
 <P><STRONG><a name="[78]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
@@ -678,7 +672,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[91]"></a>DecisionTree_Model_1</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, lkml_decisiontree.o(i.DecisionTree_Model_1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = DecisionTree_Model_1 &rArr; node1 &rArr;  node1 (Cycle)
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = DecisionTree_Model_1 &rArr; node1 &rArr; node3 &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
 </UL>
@@ -1601,47 +1595,35 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[92]"></a>node1</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, lkml_decisiontree.o(i.node1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56 + In Cycle
-<LI>Call Chain = node1 &rArr;  node1 (Cycle)
+<P><STRONG><a name="[92]"></a>node1</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, lkml_decisiontree.o(i.node1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = node1 &rArr; node3 &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node3
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node2
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
 </UL>
 <BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecisionTree_Model_1
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
 </UL>
 
-<P><STRONG><a name="[12a]"></a>node2</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, lkml_decisiontree.o(i.node2))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40 + In Cycle
-<LI>Call Chain = node2 &rArr;  node2 (Cycle)
+<P><STRONG><a name="[12a]"></a>node2</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, lkml_decisiontree.o(i.node2))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = node2 &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node2
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node2
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
 </UL>
 
-<P><STRONG><a name="[12b]"></a>node3</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, lkml_decisiontree.o(i.node3))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40 + In Cycle
-<LI>Call Chain = node3 &rArr;  node3 (Cycle)
+<P><STRONG><a name="[12b]"></a>node3</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, lkml_decisiontree.o(i.node3))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = node3 &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node3
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node3
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;node1
 </UL>
 
 <P><STRONG><a name="[ff]"></a>put_fat</STRONG> (Thumb, 326 bytes, Stack size 32 bytes, ff.o(i.put_fat))
@@ -2133,12 +2115,12 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[f4]"></a>_fp_digits</STRONG> (Thumb, 366 bytes, Stack size 64 bytes, printfa.o(i._fp_digits), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
+<BR><BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2ulz
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
