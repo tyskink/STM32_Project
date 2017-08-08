@@ -83,9 +83,7 @@ void Model_CNN_ICRSF()
 			LK_Accuarcy F5B[10];
 			
 			LK_UART(&huart1,"{A");	
- while(input--)
- {
-	 
+ 
 		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/Zc.lkf", FA_READ); 
 		LK_Accuarcy* ZeroCenter_Parameters;
 		ZeroCenter_Parameters=(LK_Accuarcy*)malloc(784*4);  
@@ -181,7 +179,7 @@ void Model_CNN_ICRSF()
 		
 		LK_Softmax(&h3[0], 10);//18.28499600
 		//printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
- 	}
+ 
  LK_UART(&huart1,"{Z");	
 	
 }//18.32246530   or 4.74134970  46486762  47366363   **46471409   **47359281
@@ -231,7 +229,7 @@ int main(void)
 	
 	
  // heaptest();
-	// Model_CNN_ICRSF();
+  Model_CNN_ICRSF();
 
 	DecisionTree_Model_1();
   while (1)
