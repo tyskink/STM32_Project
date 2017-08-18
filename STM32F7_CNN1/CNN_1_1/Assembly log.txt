@@ -1,36 +1,63 @@
    215: { 
-0x08006B70 E92D5FF0  PUSH          {r4-r12,lr}
    216: int a=1234; 
-0x08006B74 F24044D2  MOVW          r4,#0x4D2
    217:         int b=255; 
    218:         int e; 
-0x08006B78 25FF      MOVS          r5,#0xFF
+0x0800566C B510      PUSH          {r4,lr}
    219:         e=a*b;   
-0x08006B7A FB14F605  SMULBB        r6,r4,r5
+0x0800566E 4906      LDR           r1,[pc,#24]  ; @0x08005688
    220:         printf_s("  %d",e);      
-0x08006B7E 4631      MOV           r1,r6
-0x08006B80 A00B      ADR           r0,{pc}+0x30  ; @0x08006BB0
-0x08006B82 F7FDFB59  BL.W          __0printf (0x08004238)
    221:         float c=1.24597; 
-0x08006B86 F8DF9030  LDR.W         r9,[pc,#48]  ; @0x08006BBA
    222:         float d=0.003587; 
    223:         float f;         
-0x08006B8A F8DFA030  LDR.W         r10,[pc,#48]  ; @0x08006BBE
    224:         f=c*d; 
-0x08006B8E 4651      MOV           r1,r10
-0x08006B90 4648      MOV           r0,r9
-0x08006B92 F7F9FB35  BL.W          __aeabi_fmul (0x08000200)
-0x08006B96 4683      MOV           r11,r0
+0x08005670 A006      ADR           r0,{pc}+0x1C  ; @0x0800568C
+0x08005672 F7FDFEDB  BL.W          __0printf (0x0800342C)
    225:                 printf_s("  %f",f); 
-   226:  
-0x08006B98 4658      MOV           r0,r11
-0x08006B9A F7F9FB63  BL.W          __aeabi_f2d (0x08000264)
-0x08006B9E 4607      MOV           r7,r0
-0x08006BA0 463A      MOV           r2,r7
-0x08006BA2 460B      MOV           r3,r1
-0x08006BA4 A006      ADR           r0,{pc}+0x1C  ; @0x08006BC0
-0x08006BA6 F7FDFB47  BL.W          __0printf (0x08004238)
-   227: } 
+0x08005676 ED9F0B07  VLDR          d0,[pc,#0x1C]
+0x0800567A E8BD4010  POP           {r4,lr}
+0x0800567E EC532B10  VMOV          r2,r3,d0
+0x08005682 A006      ADR           r0,{pc}+0x1C  ; @0x0800569C
+0x08005684 F7FDBED2  B.W           __0printf (0x0800342C)
+0x08005688 CD2E      DCW           0xCD2E
+0x0800568A 0004      DCW           0x0004
+0x0800568C 2020      DCW           0x2020
+0x0800568E 6425      DCW           0x6425
+0x08005690 0000      DCW           0x0000
+0x08005692 0000      DCW           0x0000
+0x08005694 0000      DCW           0x0000
+0x08005696 2000      DCW           0x2000
+0x08005698 4E65      DCW           0x4E65
+0x0800569A 3F72      DCW           0x3F72
+0x0800569C 2020      DCW           0x2020
+0x0800569E 6625      DCW           0x6625
+0x080056A0 0000      DCW           0x0000
+0x080056A2 0000      DCW           0x0000
+  2448: { 
+  2449:         FIL *fil = (FIL*)obj;   /* Assuming offset of .fs and .id in the FIL/DIR structure is identical */ 
+  2450:  
+  2451:  
+0x080056A4 B510      PUSH          {r4,lr}
+0x080056A6 B188      CBZ           r0,0x080056CC
+  2452:         if (!fil || !fil->fs || !fil->fs->fs_type || fil->fs->id != fil->id || (disk_status(fil->fs->drv) & STA_NOINIT)) 
+0x080056A8 F8D01200  LDR           r1,[r0,#0x200]
+0x080056AC B171      CBZ           r1,0x080056CC
+0x080056AE F8912200  LDRB          r2,[r1,#0x200]
+0x080056B2 B15A      CBZ           r2,0x080056CC
+0x080056B4 F8B12206  LDRH          r2,[r1,#0x206]
+0x080056B8 F8B00204  LDRH          r0,[r0,#0x204]
+0x080056BC 4282      CMP           r2,r0
+0x080056BE D105      BNE           0x080056CC
+0x080056C0 F8910201  LDRB          r0,[r1,#0x201]
+0x080056C4 F7FEFFC0  BL.W          disk_status (0x08004648)
+0x080056C8 07C0      LSLS          r0,r0,#31
+0x080056CA D000      BEQ           0x080056CE
+  2453:                 return FR_INVALID_OBJECT; 
+  2454:  
+  2455:         ENTER_FF(fil->fs);            /* Lock file system */ 
+  2456:  
+  2457:         return FR_OK; 
+0x080056CC 2009      MOVS          r0,#0x09
+  2458: } 
    
    
 SMULBT       R0, R4, R5       ; Multiplies the bottom halfword of R4 with the
