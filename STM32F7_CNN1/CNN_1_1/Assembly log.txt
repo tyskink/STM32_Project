@@ -1,0 +1,51 @@
+   215: { 
+0x08006B1C E92D41F0  PUSH          {r4-r8,lr}
+0x08006B20 ED2D8B04  VPUSH.64      {d8-d9}
+   216: int a=1234; 
+0x08006B24 F24045D2  MOVW          r5,#0x4D2
+   217:         int b=255; 
+   218:         int e; 
+0x08006B28 24FF      MOVS          r4,#0xFF
+   219:         e=a*b;   
+0x08006B2A FB15F604  SMULBB        r6,r5,r4
+   220:         printf_s("  %d",e);      
+0x08006B2E 4631      MOV           r1,r6
+0x08006B30 A00E      ADR           r0,{pc}+0x3C  ; @0x08006B6C
+0x08006B32 F7FDFB57  BL.W          __0printf (0x080041E4)
+   221:         float c=1.24597; 
+0x08006B36 ED9F0A0F  VLDR          s0,[pc,#0x3C]
+0x08006B3A EEB08A40  VMOV.F32      s16,s0
+   222:         float d=0.003587; 
+   223:         float f;         
+0x08006B3E ED9F0A0E  VLDR          s0,[pc,#0x38]
+0x08006B42 EEF08A40  VMOV.F32      s17,s0
+   224:         f=c*d; 
+0x08006B46 EE280A28  VMUL.F32      s0,s16,s17
+0x08006B4A EE107A10  VMOV          r7,s0
+   225:                 printf_s("  %f",f); 
+   226:  
+0x08006B4E 4638      MOV           r0,r7
+0x08006B50 F7F9FB56  BL.W          __aeabi_f2d (0x08000200)
+0x08006B54 EC410B19  VMOV          d9,r0,r1
+0x08006B58 EC532B19  VMOV          r2,r3,d9
+0x08006B5C A007      ADR           r0,{pc}+0x20  ; @0x08006B7C
+0x08006B5E F7FDFB41  BL.W          __0printf (0x080041E4)
+   227: } 
+   
+   
+SMULBT       R0, R4, R5       ; Multiplies the bottom halfword of R4 with the
+                              ; top halfword of R5, multiplies results and 
+                              ; writes to R0.
+SMULBB       R0, R4, R5       ; Multiplies the bottom halfword of R4 with the 
+                              ; bottom halfword of R5, multiplies results and  
+                              ; writes to R0.
+SMULTT       R0, R4, R5       ; Multiplies the top halfword of R4 with the top 
+                              ; halfword of R5, multiplies results and writes
+                              ; to R0.
+SMULTB       R0, R4, R5       ; Multiplies the top halfword of R4 with the
+                              ; bottom halfword of R5, multiplies results and
+                              ; and writes to R0.
+SMULWT       R4, R5, R3       ; Multiplies R5 with the top halfword of R3,
+                              ; extracts top 32 bits and writes to R4.
+SMULWB       R4, R5, R3       ; Multiplies R5 with the bottom halfword of R3,
+                              ; extracts top 32 bits and writes to R4.

@@ -211,6 +211,20 @@ void heaptest()
 }
 
 
+void test_MultiplicatoinSpeed()
+{
+int a=1234;
+	int b=255;
+	int e;
+	e=a*b;	
+	printf_s("  %d",e);	
+	float c=1.24597;
+	float d=0.003587;
+	float f;	
+	f=c*d;
+		printf_s("  %f",f);
+
+}
  
 int main(void)
 {
@@ -229,7 +243,12 @@ int main(void)
 	
 	
  // heaptest();
-  Model_CNN_ICRSF();
+ // Model_CNN_ICRSF();
+	
+
+	test_MultiplicatoinSpeed();
+	
+	
 
 	//DecisionTree_Model_1();
   while (1)
