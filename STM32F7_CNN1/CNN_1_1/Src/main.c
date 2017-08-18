@@ -54,7 +54,7 @@
 #include "LK_STM32.h"
 #include <stdlib.h>	/* malloc */
 #include <string.h> /* memset */
-#include "LKML_DecisionTree.h"
+//#include "LKML_DecisionTree.h"
 SD_HandleTypeDef hsd1;
 
 
@@ -231,7 +231,7 @@ int main(void)
  // heaptest();
   Model_CNN_ICRSF();
 
-	DecisionTree_Model_1();
+	//DecisionTree_Model_1();
   while (1)
   {
  

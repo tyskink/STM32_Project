@@ -1,4 +1,4 @@
---cpu Cortex-M7 --fpu=SoftVFP
+--cpu Cortex-M7.fp.sp
 "cnn_1\bsp_driver_sd.o"
 "cnn_1\stm32f7xx_hal_msp.o"
 "cnn_1\main.o"
@@ -7,7 +7,6 @@
 "cnn_1\lk_stm32.o"
 "cnn_1\lkml_layers.o"
 "cnn_1\lkml_math.o"
-"cnn_1\lkml_decisiontree.o"
 "cnn_1\stm32f7xx_hal_i2c.o"
 "cnn_1\stm32f7xx_hal_tim.o"
 "cnn_1\stm32f7xx_hal_gpio.o"
