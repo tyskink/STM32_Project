@@ -1,35 +1,35 @@
    215: { 
-0x08006B1C E92D41F0  PUSH          {r4-r8,lr}
-0x08006B20 ED2D8B04  VPUSH.64      {d8-d9}
+0x08006B70 E92D5FF0  PUSH          {r4-r12,lr}
    216: int a=1234; 
-0x08006B24 F24045D2  MOVW          r5,#0x4D2
+0x08006B74 F24044D2  MOVW          r4,#0x4D2
    217:         int b=255; 
    218:         int e; 
-0x08006B28 24FF      MOVS          r4,#0xFF
+0x08006B78 25FF      MOVS          r5,#0xFF
    219:         e=a*b;   
-0x08006B2A FB15F604  SMULBB        r6,r5,r4
+0x08006B7A FB14F605  SMULBB        r6,r4,r5
    220:         printf_s("  %d",e);      
-0x08006B2E 4631      MOV           r1,r6
-0x08006B30 A00E      ADR           r0,{pc}+0x3C  ; @0x08006B6C
-0x08006B32 F7FDFB57  BL.W          __0printf (0x080041E4)
+0x08006B7E 4631      MOV           r1,r6
+0x08006B80 A00B      ADR           r0,{pc}+0x30  ; @0x08006BB0
+0x08006B82 F7FDFB59  BL.W          __0printf (0x08004238)
    221:         float c=1.24597; 
-0x08006B36 ED9F0A0F  VLDR          s0,[pc,#0x3C]
-0x08006B3A EEB08A40  VMOV.F32      s16,s0
+0x08006B86 F8DF9030  LDR.W         r9,[pc,#48]  ; @0x08006BBA
    222:         float d=0.003587; 
    223:         float f;         
-0x08006B3E ED9F0A0E  VLDR          s0,[pc,#0x38]
-0x08006B42 EEF08A40  VMOV.F32      s17,s0
+0x08006B8A F8DFA030  LDR.W         r10,[pc,#48]  ; @0x08006BBE
    224:         f=c*d; 
-0x08006B46 EE280A28  VMUL.F32      s0,s16,s17
-0x08006B4A EE107A10  VMOV          r7,s0
+0x08006B8E 4651      MOV           r1,r10
+0x08006B90 4648      MOV           r0,r9
+0x08006B92 F7F9FB35  BL.W          __aeabi_fmul (0x08000200)
+0x08006B96 4683      MOV           r11,r0
    225:                 printf_s("  %f",f); 
    226:  
-0x08006B4E 4638      MOV           r0,r7
-0x08006B50 F7F9FB56  BL.W          __aeabi_f2d (0x08000200)
-0x08006B54 EC410B19  VMOV          d9,r0,r1
-0x08006B58 EC532B19  VMOV          r2,r3,d9
-0x08006B5C A007      ADR           r0,{pc}+0x20  ; @0x08006B7C
-0x08006B5E F7FDFB41  BL.W          __0printf (0x080041E4)
+0x08006B98 4658      MOV           r0,r11
+0x08006B9A F7F9FB63  BL.W          __aeabi_f2d (0x08000264)
+0x08006B9E 4607      MOV           r7,r0
+0x08006BA0 463A      MOV           r2,r7
+0x08006BA2 460B      MOV           r3,r1
+0x08006BA4 A006      ADR           r0,{pc}+0x1C  ; @0x08006BC0
+0x08006BA6 F7FDFB47  BL.W          __0printf (0x08004238)
    227: } 
    
    
