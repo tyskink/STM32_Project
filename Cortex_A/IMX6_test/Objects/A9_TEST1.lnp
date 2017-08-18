@@ -1,0 +1,9 @@
+--cpu=Cortex-M4.fp
+".\objects\main.o"
+".\objects\uart_imx.o"
+".\objects\startup_imx6sx_m4.o"
+".\objects\system_imx6sx_m4.o"
+--strict --scatter ".\Objects\A9_TEST1.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\A9_TEST1.map" -o .\Objects\A9_TEST1.axf

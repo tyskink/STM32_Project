@@ -1,0 +1,26 @@
+Dependencies for Project 'A9_TEST1', Target 'Target 1': (DO NOT MODIFY !)
+F (.\MAIN.c)(0x5996ECF4)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MCIMX6X3_Cortex-M4-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include-IC:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\SDK\platform\drivers\inc-D__UVISION_VERSION="523" -D_RTE_ -DiMX6SX_M4-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (C:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\SDK\platform\drivers\src\uart_imx.c)(0x57BD98BE)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MCIMX6X3_Cortex-M4-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include-IC:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\SDK\platform\drivers\inc-D__UVISION_VERSION="523" -D_RTE_ -DiMX6SX_M4-o .\objects\uart_imx.o --omf_browse .\objects\uart_imx.crf --depend .\objects\uart_imx.d)
+I (C:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\SDK\platform\drivers\inc\uart_imx.h)(0x57BD98BE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F66928)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F66928)
+I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x57F66926)
+I (C:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include\device_imx.h)(0x57BD98BE)
+I (C:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include\iMX6SX_M4.h)(0x598B15E0)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\core_cm4.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\cmsis_version.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\cmsis_compiler.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\cmsis_armcc.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\mpu_armv7.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include\system_iMX6SX_M4.h)(0x59382718)
+F (RTE\Device\MCIMX6X3_Cortex-M4\startup_iMX6SX_M4.s)(0x5941039A)(--cpu Cortex-M4.fp -g --apcs=interwork -I.\RTE\Device\MCIMX6X3_Cortex-M4-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include-IC:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\SDK\platform\drivers\inc--pd "__UVISION_VERSION SETA 523" --pd "_RTE_ SETA 1" --pd "iMX6SX_M4 SETA 1"--list .\listings\startup_imx6sx_m4.lst --xref -o .\objects\startup_imx6sx_m4.o --depend .\objects\startup_imx6sx_m4.d)
+F (RTE\Device\MCIMX6X3_Cortex-M4\system_iMX6SX_M4.c)(0x588F3E4A)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\MCIMX6X3_Cortex-M4-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include-IC:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\SDK\platform\drivers\inc-D__UVISION_VERSION="523" -D_RTE_ -DiMX6SX_M4-o .\objects\system_imx6sx_m4.o --omf_browse .\objects\system_imx6sx_m4.crf --depend .\objects\system_imx6sx_m4.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F66928)
+I (C:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include\iMX6SX_M4.h)(0x598B15E0)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\core_cm4.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\cmsis_version.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\cmsis_compiler.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\cmsis_armcc.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include\mpu_armv7.h)(0x59847036)
+I (C:\Keil_v5\ARM\PACK\Keil\iMX6_DFP\1.5.0\Device\Include\system_iMX6SX_M4.h)(0x59382718)
+F (RTE\Device\MCIMX6X3_Cortex-M4\system_iMX6SX_M4.h)(0x59382718)()
