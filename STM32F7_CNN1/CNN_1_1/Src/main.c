@@ -52,6 +52,7 @@
 #include "LKML_Math.h"
 #include "LK_fatfs.h"
 #include "LK_STM32.h"
+#include "LKML_Layers.h"
 #include <stdlib.h>	/* malloc */
 #include <string.h> /* memset */
 //#include "LKML_DecisionTree.h"
@@ -247,7 +248,6 @@ int main(void)
 	
 
 	test_MultiplicatoinSpeed();
-	
 	
 
 	//DecisionTree_Model_1();
