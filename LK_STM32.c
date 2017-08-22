@@ -145,7 +145,6 @@ int fputc(int ch, FILE *f) {
  char *dataString;
 	*dataString=ch;
    HAL_UART_Transmit(&huart1, (uint8_t *)dataString , 1, 0xFF);
- //
     return ch;
 	}
 	else

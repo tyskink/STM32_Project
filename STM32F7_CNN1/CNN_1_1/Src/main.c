@@ -226,6 +226,15 @@ int a=1234;
 		printf_s("  %f",f);
 
 }
+
+void test_armasm(int *c)
+{
+	int a=1234;
+	int b=255;
+	//int c;
+	*c=a+b;
+	
+}
  
 int main(void)
 {
@@ -247,10 +256,23 @@ int main(void)
  // Model_CNN_ICRSF();
 	
 
-	test_MultiplicatoinSpeed();
+	//test_MultiplicatoinSpeed();
 	
+	int a=0;
+	int b=255;
+	int c;
+	test_armasm(&c);
 
 	//DecisionTree_Model_1();
+	
+	while(b--)
+	{
+	
+	a++;
+	}
+	
+	printf_s("  %d",a);
+	
   while (1)
   {
  
