@@ -50,7 +50,7 @@ dkms.conf
 
 
 #ignore folders
-STM32L0_Start/* 
+#STM32L0_Start/* 
 STM32F7_Project/* 
 STM32F4_Start/* 
 STM32Cube_FW_F7_V1.7.0/* 
