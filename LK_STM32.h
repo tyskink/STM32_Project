@@ -9,9 +9,11 @@
 //#ifdef STM32F746x
 	 
 #include <stdio.h>
-	  
-//#include "stm32f7xx_hal.h"
-	#include "stm32l0xx_hal.h "
+
+//		#include "stm32f7xx_hal.h"
+
+			#include "stm32l0xx_hal.h "
+
 
 //#elsifdef STM32F407xxx
 //#include "stm32f4xx_hal.h"	 
