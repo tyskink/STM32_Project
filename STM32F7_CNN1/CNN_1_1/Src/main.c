@@ -191,6 +191,18 @@ printf_s("  end: %d",time2-time1);
  
 int main(void)
 {
+	uint32_t CPI_ClockCounter;
+	
+	
+	    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; 	  	// enable trace
+      DWT->LAR = 0xC5ACCE55; 																// <-- added unlock access to DWT (ITM, etc.)registers 
+      DWT->CYCCNT = 0;																			// clear DWT cycle counter
+      DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;									// enable DWT cycle counter
+	
+	
+//			DWT->CPICNT;		// counts cycles per instruction
+//			DWT->EXCCNT;		// counts cycles during ISR entry and return
+//			DWT->CYCCNT;
 	
   SCB_EnableICache();
   SCB_EnableDCache();
@@ -201,8 +213,10 @@ int main(void)
   MX_SDMMC1_SD_Init();
 	testSD_UART();
 	
-Model_CNN_ICRSF();
-	
+//Model_CNN_ICRSF();
+
+CPI_ClockCounter=DWT->CYCCNT;
+	printf_s("  count is %d",CPI_ClockCounter);
   while (1)
   {
  
