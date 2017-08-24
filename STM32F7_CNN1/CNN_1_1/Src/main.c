@@ -187,54 +187,6 @@ void Model_CNN_ICRSF()
 
 
 
-
-
-
-
-
-
-
-void heaptest()
-{
-	int *a;
-	a=(int*)malloc(1024*4);
-	
-	int i=1024;
-	while(i--)
-	{
-		
-		*a=i;
-		printf("%d",*a);
-		a++;
-	}
-
-		free(a);
-}
-
-
-void test_MultiplicatoinSpeed()
-{
-int a=1234;
-	int b=255;
-	int e;
-	e=a*b;	
-	printf_s("  %d",e);	
-	float c=1.24597;
-	float d=0.003587;
-	float f;	
-	f=c*d;
-		printf_s("  %f",f);
-
-}
-
-void test_armasm(int *c)
-{
-	int a=1234;
-	int b=255;
-	//int c;
-	*c=a+b;
-	
-}
  
 int main(void)
 {
@@ -248,30 +200,7 @@ int main(void)
   MX_SDMMC1_SD_Init();
 	testSD_UART();
 	
-  //FPUCheck();
- //CORECheck();
-	
-	
- // heaptest();
- // Model_CNN_ICRSF();
-	
 
-	//test_MultiplicatoinSpeed();
-	
-	int a=0;
-	int b=255;
-	int c;
-	test_armasm(&c);
-
-	//DecisionTree_Model_1();
-	
-	while(b--)
-	{
-	
-	a++;
-	}
-	
-	printf_s("  %d",a);
 	
   while (1)
   {
