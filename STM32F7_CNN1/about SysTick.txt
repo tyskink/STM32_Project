@@ -1,0 +1,30 @@
+
+
+SysTick_Handler PROC
+                EXPORT  SysTick_Handler            [WEAK]
+                B       .
+                ENDP
+
+0x080001F4 E7FE      B             SysTick_Handler (0x080001F4)
+   451:                 B       . 
+
+
+void SysTick_Handler(void)
+{
+ HAL_IncTick();
+}
+
+84:  HAL_IncTick(); 
+0x08003556 F7FDBBB7  B.W           HAL_IncTick (0x08000CC8)
+
+
+   292:   uwTick++; 
+0x08000CC8 4802      LDR           r0,[pc,#8]  ; @0x08000CD4
+0x08000CCA 6801      LDR           r1,[r0,#0x00]
+0x08000CCC 1C49      ADDS          r1,r1,#1
+0x08000CCE 6001      STR           r1,[r0,#0x00]
+   293: } 
+0x08000CD0 4770      BX            lr
+0x08000CD2 0000      DCW           0x0000
+0x08000CD4 0008      DCW           0x0008
+0x08000CD6 2000      DCW           0x2000

@@ -76,14 +76,15 @@ void Model_CNN_ICRSF()
 	Test_feature=(LK_Accuarcy*)malloc(784*8);  	
 	
 			f_open(&File_X, (const TCHAR*)"DataSet/MNIST_train_features_60000_784_scale.lkf", FA_READ); 
-			int input=10000;
-	
+			int input=100;
+	uint32_t time1,time2;
 	
 			LK_Accuarcy h3[10] = {0};//18.13738780
 			LK_Accuarcy F5W[10][864] = { 0 };  //   THIS Step require a large stack area, which may let the file system not work.
 			LK_Accuarcy F5B[10];
 			
-			LK_UART(&huart1,"{A");	printf_s("  start: %d",HAL_GetTick());
+			LK_UART(&huart1,"{A");	//printf_s("  start: %d",time=HAL_GetTick());
+			time1=HAL_GetTick();
  while(input--)
 	{
 		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/Zc.lkf", FA_READ); 
@@ -91,14 +92,11 @@ void Model_CNN_ICRSF()
 		ZeroCenter_Parameters=(LK_Accuarcy*)malloc(784*4);  
 		f_read(&File_X, Test_feature, 784*4, (UINT*)&bytesread); 
 		f_read(&File_In, ZeroCenter_Parameters, 28*28*4, (UINT*)&bytesread); 
-	
-
-		
+			
 		LK_ZeroCenter(Test_feature, ZeroCenter_Parameters, 28 * 28); 
 		free(ZeroCenter_Parameters); 
 		f_close(&File_In); 
 		
-	
 
 		LK_Accuarcy* h1;
 		
@@ -180,11 +178,12 @@ void Model_CNN_ICRSF()
 		LK_FullyConnect(&F5W[0][0],10,864,&h2[0][0][0],&h3[0],&F5B[0]);
 		
 		LK_Softmax(&h3[0], 10);//18.28499600
+		printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
 	}
-		//printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
- 
+		//
+ time2=HAL_GetTick();
  LK_UART(&huart1,"{Z");	
-	printf_s("  end: %d",HAL_GetTick());
+printf_s("  end: %d",time2-time1);
 }//18.32246530   or 4.74134970  46486762  47366363   **46471409   **47359281
 
 

@@ -81,8 +81,8 @@ void SysTick_Handler(void)
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
   /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
-  HAL_SYSTICK_IRQHandler();
+ HAL_IncTick();
+//  HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */
@@ -103,7 +103,7 @@ void USART1_IRQHandler(void)
   /* USER CODE BEGIN USART1_IRQn 0 */
 
   /* USER CODE END USART1_IRQn 0 */
-  HAL_UART_IRQHandler(&huart1);
+ // HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
 
   /* USER CODE END USART1_IRQn 1 */
@@ -117,7 +117,7 @@ void SDMMC1_IRQHandler(void)
   /* USER CODE BEGIN SDMMC1_IRQn 0 */
 
   /* USER CODE END SDMMC1_IRQn 0 */
-  HAL_SD_IRQHandler(&hsd1);
+ // HAL_SD_IRQHandler(&hsd1);
   /* USER CODE BEGIN SDMMC1_IRQn 1 */
 
   /* USER CODE END SDMMC1_IRQn 1 */
