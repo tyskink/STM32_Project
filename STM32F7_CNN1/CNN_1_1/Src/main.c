@@ -53,6 +53,7 @@
 #include "LK_fatfs.h"
 #include "LK_STM32.h"
 #include "LKML_Layers.h"
+#include "LKML_FileIO_FATFS.h"
 #include <stdlib.h>	/* malloc */
 #include <string.h> /* memset */
 //#include "LKML_DecisionTree.h"
@@ -187,6 +188,77 @@ printf_s("  end: %d",time2-time1);
 }//18.32246530   or 4.74134970  46486762  47366363   **46471409   **47359281
 
 
+void Model_CNN_1_1()  //float parameter, float computation 
+{
+	LK_Accuarcy_Data Test_feature[784];
+	 LK_Data TestFeature = {.W=28,.H=28,.D=1,.Size=784,.Matrix=&Test_feature[0] };
+
+	FIL FeaturesFILE;
+	f_open(&FeaturesFILE, "CNN_ZcCoReSuFuSm/MNIST_train_features_60000_784_scale.lkf", FA_READ);  //MNIST_train_features_60000_784_scale MNIST_test_features_10000_784_scale
+	 
+	LK_FILE labelFILE;
+	f_open(labelFILE, "CNN_ZcCoReSuFuSm/MNIST_train_label_60000_1.lkf", FA_READ);  //MNIST_train_label_60000_1  MNIST_test_label_10000_1
+
+	//ImageInput: Zerocenter
+	LK_Accuarcy_Data ZeroCenter_Parameters[784];
+	 LK_Data ZeroCenterParameter = { .W = 28,.H = 28,.D = 1,.Size = 784,.Matrix = &ZeroCenter_Parameters[0] };
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/Zc.lkf", &ZeroCenter_Parameters[0], 784);
+
+	//Conv Relu MaxPoolling
+	LK_Accuarcy_Data C1K[6][5][5]; 
+	LK_Accuarcy_Data C1B[6];	
+	 LK_Kernel Conv1Kernel={.W=5, .H=5, .D=6, .Matrix= &C1K[0][0][0], .Bias= &C1B[0] ,.KernelSize=25};
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/C1K1.lkf", &C1K[0][0][0], 5 * 5);
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/C1K2.lkf", &C1K[1][0][0], 5 * 5);
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/C1K3.lkf", &C1K[2][0][0], 5 * 5);
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/C1K4.lkf", &C1K[3][0][0], 5 * 5);
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/C1K5.lkf", &C1K[4][0][0], 5 * 5);
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/C1K6.lkf", &C1K[5][0][0], 5 * 5);
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/C1B.lkf", &C1B[0], 6);
+	LK_Accuarcy_Calculate h2[6][12][12];
+	 LK_Matrix H2={.W=12,.H=12,.D=6,.Size=864,.Matrix=&h2[0][0][0] };
+
+
+
+	LK_Accuarcy F5W[10][864] ;	
+	LK_Accuarcy F5B[10] ;
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/F5W.lkf", &F5W[0][0], 864 * 10);
+	LK_ReadData("C:/Users/kongq/Desktop/machine_learning_ex/CNN_ZcCoReSuFuSm/F5B.lkf", &F5B[0], 10);
+	 LK_Kernel FC = { .W = 864,.H = 10,.D = 1,.Matrix = &F5W[0][0],.Bias = &F5B[0] ,.KernelSize = 25 };
+
+	LK_Accuarcy_Calculate h3[10] ;
+	 LK_Matrix H3 = { .W = 1,.H = 10,.D = 1,.Size=10,.Matrix = &h3[0] };
+
+
+
+	int index = 60;
+	int ERRORCOUNT = 0;
+	while (index--)
+	{
+		UINT bytesread;
+		//LK_ReadDataLayer(&TestFeature, FeaturesFILE);//H0
+		f_read(&FeaturesFILE, Test_feature, 784*4, (UINT*)&bytesread); 
+		
+		LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1
+
+		LK_ConvReluPoolLayer(&TestFeature,&Conv1Kernel,&H2);
+
+
+		LK_FullyConnectLayer(&FC, &H2,	&H3);
+
+
+		//LK_Softmax(&h3[0], 10);
+		//LK_SoftmaxLayer(&H3);
+		//LK_displayMatrix(&h3[0], 10, 1, "h3");
+		printf_s("   %d	\r\n", maxofMatrix(&h3[0], 10));
+
+		//LK_CheckResultLayer(labelFILE, maxofMatrix(&h3[0], 10),&ERRORCOUNT);
+		
+	}
+printf_s("   Error: %d", (ERRORCOUNT));
+
+}
+
 
  
 int main(void)
@@ -197,12 +269,13 @@ int main(void)
 	    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; 	  	// enable trace
       DWT->LAR = 0xC5ACCE55; 																// <-- added unlock access to DWT (ITM, etc.)registers 
       DWT->CYCCNT = 0;																			// clear DWT cycle counter
-      DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;									// enable DWT cycle counter
-	
-	
-//			DWT->CPICNT;		// counts cycles per instruction
-//			DWT->EXCCNT;		// counts cycles during ISR entry and return
-//			DWT->CYCCNT;
+      DWT->CTRL |= 																					// enable DWT cycle counter
+										DWT_CTRL_CYCCNTENA_Msk|				//DWT->CYCCNT;
+										DWT_CTRL_CPIEVTENA_Msk|				//DWT->CPICNT;		// counts cycles per instruction
+										DWT_CTRL_EXCEVTENA_Msk|				//DWT->EXCCNT;		// counts cycles during ISR entry and return
+										DWT_CTRL_SLEEPEVTENA_Msk|			//DWT->SLEEPCNT;
+										DWT_CTRL_LSUEVTENA_Msk|				//DWT->LSUCNT;
+										DWT_CTRL_FOLDEVTENA_Msk;			//DWT->FOLDCNT;									
 	
   SCB_EnableICache();
   SCB_EnableDCache();
@@ -214,9 +287,9 @@ int main(void)
 	testSD_UART();
 	
 //Model_CNN_ICRSF();
+Model_CNN_1_1();
 
-CPI_ClockCounter=DWT->CYCCNT;
-	printf_s("  count is %d",CPI_ClockCounter);
+CPI_ClockCounter=DWT->FOLDCNT;	printf_s("  count is %d\r\n",CPI_ClockCounter);
   while (1)
   {
  

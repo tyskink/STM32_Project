@@ -353,7 +353,32 @@ void CORECheck(void) // sourcer32@gmail.com
 }
 
 
+//-------------------------------------------------------------------------- Debug API ---------------------------------------------------------------------------------
 
+void LK_Enable_DWT()
+{
+	uint32_t CPI_ClockCounter;
+
+	    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; 	  	// enable trace
+      DWT->LAR = 0xC5ACCE55; 																// <-- added unlock access to DWT (ITM, etc.)registers 
+      DWT->CYCCNT = 0;																			// clear DWT cycle counter
+      DWT->CTRL |= 																					// enable DWT cycle counter
+										DWT_CTRL_CYCCNTENA_Msk|
+										DWT_CTRL_CPIEVTENA_Msk|
+										DWT_CTRL_EXCEVTENA_Msk|
+										DWT_CTRL_SLEEPEVTENA_Msk|
+										DWT_CTRL_LSUEVTENA_Msk|
+										DWT_CTRL_FOLDEVTENA_Msk;									
+	
+	
+//			DWT->CPICNT;		// counts cycles per instruction
+//			DWT->EXCCNT;		// counts cycles during ISR entry and return
+//			DWT->CYCCNT;
+//			DWT->SLEEPCNT;
+//			DWT->LSUCNT;
+//			DWT->FOLDCNT;
+	
+}
 
 
 
