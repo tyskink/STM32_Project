@@ -355,7 +355,7 @@ void CORECheck(void) // sourcer32@gmail.com
 
 //-------------------------------------------------------------------------- Debug API ---------------------------------------------------------------------------------
 
-void LK_Enable_DWT()
+void LK_DWT_Enable()
 {
 	uint32_t CPI_ClockCounter;
 
@@ -380,6 +380,18 @@ void LK_Enable_DWT()
 	
 }
 
+
+
+void LK_DWT_RESET()
+{
+ DWT->CYCCNT = 0;   // sub 6   in op3
+ DWT->CPICNT = 0;   // sub 2   don't know
+ DWT->EXCCNT = 0;	  // sub 0
+ DWT->SLEEPCNT = 0; // sub 0
+ DWT->LSUCNT = 0;		// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+
+}
 
 
 
