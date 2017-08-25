@@ -1,0 +1,66 @@
+*****************************************************************************************************
+1. test by (op3)
+ DWT->CYCCNT = 0;   	// sub 6    5 in op0
+ DWT->CPICNT = 0;   	// sub 2    1 in op0
+ DWT->EXCCNT = 0;	// sub 0
+ DWT->SLEEPCNT = 0; 	// sub 0
+ DWT->LSUCNT = 0;	// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+CPI_ClockCounter=DWT->CYCCNT;	printf_s("  count is %d \r\n",CPI_ClockCounter);
+
+strange: CPI is 2, Why????
+
+
+
+*****************************************************************************************************
+2. test by (op0)
+int a=1,b=2,c=3,d=4,f=5,e=6;
+ DWT->CYCCNT = 0;   	// 5
+ DWT->CPICNT = 0;   	// 0
+ DWT->EXCCNT = 0;	// 0
+ DWT->SLEEPCNT = 0; 	//  
+ DWT->LSUCNT = 0;	// 0
+ DWT->FOLDCNT = 0;	// 0
+ a=b+c;
+ d=f+e;
+CPI_ClockCounter=DWT->CYCCNT;	printf_s("  count is %d %d %d \r\n",CPI_ClockCounter,a,d);
+
+   292: int a=1,b=2,c=3,d=4,f=5,e=6; 
+   293:   
+0x080068C8 F04F0901  MOV           r9,#0x01
+0x080068CC 2502      MOVS          r5,#0x02
+0x080068CE F04F0803  MOV           r8,#0x03
+0x080068D2 F04F0A04  MOV           r10,#0x04
+0x080068D6 2705      MOVS          r7,#0x05
+0x080068D8 2606      MOVS          r6,#0x06
+   294:  DWT->CYCCNT = 0;    
+0x080068DA 2000      MOVS          r0,#0x00
+0x080068DC 490D      LDR           r1,[pc,#52]  ; @0x08006914
+0x080068DE 6048      STR           r0,[r1,#0x04]
+   295:  DWT->CPICNT = 0;     
+0x080068E0 6088      STR           r0,[r1,#0x08]
+   296:  DWT->EXCCNT = 0;       
+0x080068E2 60C8      STR           r0,[r1,#0x0C]
+   297:  DWT->SLEEPCNT = 0;  
+0x080068E4 6108      STR           r0,[r1,#0x10]
+   298:  DWT->LSUCNT = 0;      
+0x080068E6 6148      STR           r0,[r1,#0x14]
+   299:  DWT->FOLDCNT = 0;    
+   300:   
+0x080068E8 6188      STR           r0,[r1,#0x18]
+   301:  a=b+c; 
+0x080068EA EB050908  ADD           r9,r5,r8
+   302:  d=f+e; 
+   303:   
+   304:   
+0x080068EE EB070A06  ADD           r10,r7,r6
+   305: CPI_ClockCounter=DWT->CYCCNT;   printf_s("  count is %d %d %d \r\n",CPI_ClockCounter,a,d); 
+0x080068F2 4608      MOV           r0,r1
+0x080068F4 6844      LDR           r4,[r0,#0x04]
+0x080068F6 4653      MOV           r3,r10
+0x080068F8 464A      MOV           r2,r9
+0x080068FA 4621      MOV           r1,r4
+0x080068FC A008      ADR           r0,{pc}+0x24  ; @0x08006920
+0x080068FE F7FDFD4B  BL.W          __0printf (0x08004398)
+
+*********************************************************************************************************

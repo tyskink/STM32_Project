@@ -236,29 +236,25 @@ void Model_CNN_1_1()  //float parameter, float computation
 
 	int index = 6;
 	int ERRORCOUNT = 0;
+	 
+	 
 	while (index--)
 	{
 		float LABLE;
-		LK_ReadDataLayer(&TestFeature, &FeaturesFILE);//H0
+		//LK_ReadDataLayer(&TestFeature, &FeaturesFILE);//H0
 		//f_read(&FeaturesFILE, &Test_feature[0], 784*4, (UINT*)&bytesread); 
-		//f_read(&labelFILE, &LABLE, 4, (UINT*)&bytesread); 
-		
+		//f_read(&labelFILE, &LABLE, 4, (UINT*)&bytesread); 		
 		LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1
-
 		LK_ConvReluPoolLayer(&TestFeature,&Conv1Kernel,&H2);
-
-
 		LK_FullyConnectLayer(&FC, &H2,	&H3);
-
-
 		//LK_Softmax(&h3[0], 10);
 		//LK_SoftmaxLayer(&H3);
 		//LK_displayMatrix(&h3[0], 10, 1, "h3");
-		printf_s("  label: %f result: %d	\r\n", LABLE,maxofMatrix(&h3[0], 10));
-
-		LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10),&ERRORCOUNT);
-		
+		maxofMatrix(&h3[0], 10);
+		//printf_s("  label: %f result: %d	\r\n", LABLE,maxofMatrix(&h3[0], 10));
+		//LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10),&ERRORCOUNT);	
 	}
+	
 printf_s("   Error: %d", (ERRORCOUNT));
 
 }
@@ -293,7 +289,20 @@ int main(void)
 //Model_CNN_ICRSF();
 Model_CNN_1_1();
 
-CPI_ClockCounter=DWT->FOLDCNT;	printf_s("  count is %d\r\n",CPI_ClockCounter);
+int a=1,b=2,c=3,d=4,f=5,e=6;
+ 
+ DWT->CYCCNT = 0;   // sub 6
+ DWT->CPICNT = 0;   // sub 2 
+ DWT->EXCCNT = 0;	  // sub 0
+ DWT->SLEEPCNT = 0; // sub 0
+ DWT->LSUCNT = 0;		// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+ 
+// a=b+c;
+// d=f+e;
+ 
+ 
+CPI_ClockCounter=DWT->CYCCNT;	printf_s("  count is %d %d %d \r\n",CPI_ClockCounter,a,d);
   while (1)
   {
  
