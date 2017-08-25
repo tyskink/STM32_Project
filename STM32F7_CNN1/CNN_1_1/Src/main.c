@@ -194,12 +194,12 @@ void Model_CNN_1_1()  //float parameter, float computation
 	LK_Accuarcy_Data Test_feature[784];
 	LK_Data TestFeature = {.W=28,.H=28,.D=1,.Size=784,.Matrix=&Test_feature[0] };
 
-	FIL FeaturesFILE;
+	LK_FILE FeaturesFILE;
 	//f_open(FeaturesFILE, (const TCHAR*)"DataSet/MNIST_train_features_60000_784_scale.lkf", FA_READ); 
 	LK_OpenFile(&FeaturesFILE, "DataSet/MNIST_train_features_60000_784_scale.lkf");  //MNIST_train_features_60000_784_scale MNIST_test_features_10000_784_scale
 	 
 	LK_FILE labelFILE;
-	LK_OpenFile(labelFILE, "DataSet/MNIST_train_label_60000_1.lkf");  //MNIST_train_label_60000_1  MNIST_test_label_10000_1
+	LK_OpenFile(&labelFILE, "DataSet/MNIST_train_label_60000_1.lkf");  //MNIST_train_label_60000_1  MNIST_test_label_10000_1
 
 	//ImageInput: Zerocenter
 	LK_Accuarcy_Data ZeroCenter_Parameters[784];
@@ -256,7 +256,7 @@ void Model_CNN_1_1()  //float parameter, float computation
 		//LK_displayMatrix(&h3[0], 10, 1, "h3");
 		printf_s("  label: %f result: %d	\r\n", LABLE,maxofMatrix(&h3[0], 10));
 
-		//LK_CheckResultLayer(labelFILE, maxofMatrix(&h3[0], 10),&ERRORCOUNT);
+		LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10),&ERRORCOUNT);
 		
 	}
 printf_s("   Error: %d", (ERRORCOUNT));
