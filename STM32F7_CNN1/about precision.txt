@@ -1,0 +1,65 @@
+
+
+
+void LK_ZeroCenterLayer(LK_Data * input, LK_Data * ZeroCenterParameter)
+{
+	int Size = input->Size;
+	LK_Accuarcy_Data *im=input->Matrix;
+	LK_Accuarcy_Data *meanParameter=ZeroCenterParameter->Matrix;
+
+	while (Size--)
+	{
+		*im = *im + *meanParameter;
+		im++;
+		meanParameter++;
+	}
+}
+
+test method:
+
+//--------------------------------DWT REST
+uint32_t DWT_Counter;
+DWT->CYCCNT = 0;   // sub 6
+ DWT->CPICNT = 0;   // sub 2 
+ DWT->EXCCNT = 0;	  // sub 0
+ DWT->SLEEPCNT = 0; // sub 0
+ DWT->LSUCNT = 0;		// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+//--------------------------------DWT			
+		
+		LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1
+//--------------------------------DWT OUTPUT		
+DWT_Counter=DWT->FOLDCNT;	printf_s("  count is %d\r\n",DWT_Counter);		
+//--------------------------------DWT END		
+
+environment: op3 stm32f746 1ms systick
+
+int£º
+0x080023DE B510      PUSH          {r4,lr}
+    80:         LK_Accuarcy_Data *meanParameter=ZeroCenterParameter->Matrix;  
+    82:         while (Size--) 
+    83:         { 
+0x080023E0 690A      LDR           r2,[r1,#0x10]
+0x080023E2 E9D01003  LDRD          r1,r0,[r0,#0x0C]
+0x080023E6 E003      B             0x080023F0
+    84:                 *im = *im + *meanParameter; 
+    85:                 im++; 
+    86:                 meanParameter++; 
+    87:         } 
+0x080023E8 CA10      LDM           r2!,{r4}
+0x080023EA 6803      LDR           r3,[r0,#0x00]
+0x080023EC 4423      ADD           r3,r3,r4
+0x080023EE C008      STM           r0!,{r3}
+0x080023F0 1E49      SUBS          r1,r1,#1
+    82:         while (Size--) 
+    83:         { 
+    84:                 *im = *im + *meanParameter; 
+    85:                 im++; 
+    86:                 meanParameter++; 
+    87:         } 
+0x080023F2 D2F9      BCS           0x080023E8
+    88: } 
+0x080023F4 BD10      POP           {r4,pc}
+
+
+ 

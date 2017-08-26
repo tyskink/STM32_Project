@@ -281,7 +281,7 @@ printf_s("   Error: %d", (ERRORCOUNT));
 void Model_CNN_1_1_int()  //float parameter, float computation 
 {
 	LK_Accuarcy_Data Test_feature[784];
-	 LK_Data TestFeature = { .W = 28,.H = 28,.D = 1,.Size = 784,.Matrix = &Test_feature[0] };
+	 LK_Data TestFeature = { .W = 28,.H = 28,.D = 1,.Size = 284,.Matrix = &Test_feature[0] };
 
 	LK_FILE FeaturesFILE;
 	LK_OpenFile(&FeaturesFILE, "DataSet/MNIST_train_features_60000_784.lki");  //MNIST_train_features_60000_784  MNIST_test_features_10000_784
@@ -321,22 +321,37 @@ void Model_CNN_1_1_int()  //float parameter, float computation
 
 
 
-	int index = 600;
+	int index = 10000;
 	int ERRORCOUNT = 0;
 	while (index--)
 	{
 		LK_ReadDataLayer(&TestFeature, &FeaturesFILE);//H0
 
+//--------------------------------DWT REST
+uint32_t DWT_Counter;
+DWT->CYCCNT = 0;   // sub 6
+ DWT->CPICNT = 0;   // sub 2 
+ DWT->EXCCNT = 0;	  // sub 0
+ DWT->SLEEPCNT = 0; // sub 0
+ DWT->LSUCNT = 0;		// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+//--------------------------------DWT			
+		
 		LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1
-		LK_ConvReluPoolLayer(&TestFeature, &Conv1Kernel, &H2);
+//--------------------------------DWT OUTPUT		
+DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
+//--------------------------------DWT END		
+
+		
+//		LK_ConvReluPoolLayer(&TestFeature, &Conv1Kernel, &H2);
 		//LK_displayMatrix3D(&h2[0][0][0], 6, 12, 12, "h2");
-		LK_FullyConnectLayer(&FC, &H2, &H3);
+//		LK_FullyConnectLayer(&FC, &H2, &H3);
 		//LK_displayMatrix(&h3[0], 10, 1, "h3+b");
 		//LK_Softmax(&h3[0], 10);
 		//LK_SoftmaxLayer(&H3);
 		//LK_displayMatrix(&h3[0], 10, 1, "h3");
 		//printf_s("%d	\r\n", maxofMatrix(&h3[0], 10));
-	LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10), &ERRORCOUNT);
+//	LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10), &ERRORCOUNT);
 
 	}
 	printf_s("Error: %d", (ERRORCOUNT));
