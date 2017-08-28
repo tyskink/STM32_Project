@@ -190,10 +190,10 @@ printf_s("  end: %d",time2-time1);
 
 void Model_CNN_1_1()  //float parameter, float computation 
 {
-	
+	#define DWT_SIZE 1000  //all size changed
 	UINT bytesread;
-	LK_Accuarcy_Data Test_feature[784];
-	LK_Data TestFeature = {.W=28,.H=28,.D=1,.Size=784,.Matrix=&Test_feature[0] };
+	LK_Accuarcy_Data Test_feature[DWT_SIZE];
+	LK_Data TestFeature = {.W=28,.H=28,.D=1,.Size=DWT_SIZE,.Matrix=&Test_feature[0] };
 
 	LK_FILE FeaturesFILE;
 	//f_open(FeaturesFILE, (const TCHAR*)"DataSet/MNIST_train_features_60000_784_scale.lkf", FA_READ); 
@@ -204,7 +204,7 @@ void Model_CNN_1_1()  //float parameter, float computation
 
 	//ImageInput: Zerocenter
 	LK_Accuarcy_Data ZeroCenter_Parameters[784];
-	 LK_Data ZeroCenterParameter = { .W = 28,.H = 28,.D = 1,.Size = 784,.Matrix = &ZeroCenter_Parameters[0] };
+	 LK_Data ZeroCenterParameter = { .W = 28,.H = 28,.D = 1,.Size = DWT_SIZE,.Matrix = &ZeroCenter_Parameters[0] };
 	LK_ReadData("CNN_ZcCoReSuFuSm/Zc.lkf", &ZeroCenter_Parameters[0], 784);
 	//LK_displayMatrix(&ZeroCenter_Parameters[0],28,28,"ZC");
 	 
@@ -247,9 +247,20 @@ void Model_CNN_1_1()  //float parameter, float computation
 		//f_read(&labelFILE, &LABLE, 4, (UINT*)&bytesread); 		
 		
 	
-		
+		//--------------------------------DWT REST
+uint32_t DWT_Counter;
+DWT->CYCCNT = 0;   // sub 6
+ DWT->CPICNT = 0;   // sub 2 
+ DWT->EXCCNT = 0;	  // sub 0
+ DWT->SLEEPCNT = 0; // sub 0
+ DWT->LSUCNT = 0;		// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+//--------------------------------DWT				
 		LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1
-		
+	//--------------------------------DWT OUTPUT		
+DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
+//--------------------------------DWT END		
+			
 	
 		
 //		LK_ConvReluPoolLayer(&TestFeature,&Conv1Kernel,&H2);

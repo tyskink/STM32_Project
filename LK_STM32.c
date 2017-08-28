@@ -357,8 +357,7 @@ void CORECheck(void) // sourcer32@gmail.com
 
 void LK_DWT_Enable()
 {
-	uint32_t CPI_ClockCounter;
-
+			uint32_t DWT_Counter;
 	    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; 	  	// enable trace
       DWT->LAR = 0xC5ACCE55; 																// <-- added unlock access to DWT (ITM, etc.)registers 
       DWT->CYCCNT = 0;																			// clear DWT cycle counter

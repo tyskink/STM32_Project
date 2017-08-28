@@ -34,7 +34,7 @@ DWT_Counter=DWT->FOLDCNT;	printf_s("  count is %d\r\n",DWT_Counter);
 environment: op3 stm32f746 1ms systick
 
 
-int£º
+***********************int£º****************************************************************
 0x080023DE B510      PUSH          {r4,lr}     			//1+2=3
     80:         LK_Accuarcy_Data *meanParameter=ZeroCenterParameter->Matrix;  
     82:         while (Size--) 
@@ -62,11 +62,17 @@ int£º
 0x080023F4 BD10      POP           {r4,pc}				//1+1+P
 
 
- float with FPU
-0x080025D8 F7FFFEF5  BL.W          LK_ZeroCenterLayer (0x080023C6)
+**************************************** float with FPU  ****************************************************************
+in layer test 23~24 cc less than out layer. 9+3P=24, P=5.
 
-0x080023C6 690A      LDR           r2,[r1,#0x10]
-0x080023C8 E9D01003  LDRD          r1,r0,[r0,#0x0C]
+loop cc=7+1=8  2+2+1+2+1+1+P(1)
+Size0 
+//------------------------------------------------------------------------------ USING DWT out LAYER
+
+0x080025D8 F7FFFEF5  BL.W          LK_ZeroCenterLayer (0x080023C6)  	//1+P
+
+0x080023C6 690A      LDR           r2,[r1,#0x10]     					//2
+0x080023C8 E9D01003  LDRD          r1,r0,[r0,#0x0C]						//1+N(2)
     77: { 
     78:         int Size = input->Size; 
     79:         LK_Accuarcy_Data *im=input->Matrix; 
@@ -74,22 +80,112 @@ int£º
     81:  
     82:         while (Size--) 
     83:         { 
-0x080023CC E007      B             0x080023DE
+0x080023CC E007      B             0x080023DE							//1+P
     84:                 *im = *im + *meanParameter; 
     85:                 im++; 
     86:                 meanParameter++; 
     87:         } 
-0x080023CE ECF20A01  VLDMIA        r2!, {s1-s1}
-0x080023D2 ED900A00  VLDR          s0,[r0,#0x00]
-0x080023D6 EE300A20  VADD.F32      s0,s0,s1
-0x080023DA ECA00A01  VSTMIA        r0!, {s0-s0}
-0x080023DE 1E49      SUBS          r1,r1,#1
+0x080023CE ECF20A01  VLDMIA        r2!, {s1-s1}				//2				1
+0x080023D2 ED900A00  VLDR          s0,[r0,#0x00]			//2				1
+0x080023D6 EE300A20  VADD.F32      s0,s0,s1					//1				1
+0x080023DA ECA00A01  VSTMIA        r0!, {s0-s0}				//2 OR 1		1
+0x080023DE 1E49      SUBS          r1,r1,#1					//1				1
     82:         while (Size--) 
     83:         { 
     84:                 *im = *im + *meanParameter; 
     85:                 im++; 
     86:                 meanParameter++; 
     87:         } 
-0x080023E0 D2F5      BCS           0x080023CE
+0x080023E0 D2F5      BCS           0x080023CE				//1+P(1)=		2		
     88: } 
-0x080023E2 4770      BX            lr
+0x080023E2 4770      BX            lr									// 1+P
+	
+
+//------------------------------------------------------------------------------ USING DWT in LAYER
+0x0800221E 0000      MOVS          r0,r0
+    78: { 
+    79:         int Size = input->Size; 
+    80:         LK_Accuarcy_Data *im=input->Matrix; 
+    81:         LK_Accuarcy_Data *meanParameter=ZeroCenterParameter->Matrix; 
+    82:  
+    83:         //--------------------------------DWT REST 
+    84: uint32_t DWT_Counter; 
+0x08002220 B430      PUSH          {r4-r5}
+    85: DWT->CYCCNT = 0;   // sub 6 
+0x08002222 4A0E      LDR           r2,[pc,#56]  ; @0x0800225C
+0x08002224 2300      MOVS          r3,#0x00
+    81:         LK_Accuarcy_Data *meanParameter=ZeroCenterParameter->Matrix; 
+    82:  
+    83:         //--------------------------------DWT REST 
+    84: uint32_t DWT_Counter; 
+    85: DWT->CYCCNT = 0;   // sub 6 
+0x08002226 690C      LDR           r4,[r1,#0x10]
+0x08002228 E9D01003  LDRD          r1,r0,[r0,#0x0C]
+0x0800222C 6053      STR           r3,[r2,#0x04]
+    86:  DWT->CPICNT = 0;   // sub 2  
+0x0800222E 6093      STR           r3,[r2,#0x08]
+    87:  DWT->EXCCNT = 0;         // sub 0 
+0x08002230 60D3      STR           r3,[r2,#0x0C]
+    88:  DWT->SLEEPCNT = 0; // sub 0 
+0x08002232 6113      STR           r3,[r2,#0x10]
+    89:  DWT->LSUCNT = 0;              // sub 0 
+0x08002234 6153      STR           r3,[r2,#0x14]
+    90:  DWT->FOLDCNT = 0;      // sub 0 
+    91: //--------------------------------DWT          
+    92:          
+    93:         while (Size--) 
+    94:         { 
+0x08002236 6193      STR           r3,[r2,#0x18]
+    78: { 
+    79:         int Size = input->Size; 
+    80:         LK_Accuarcy_Data *im=input->Matrix; 
+    81:         LK_Accuarcy_Data *meanParameter=ZeroCenterParameter->Matrix; 
+    82:  
+    83:         //--------------------------------DWT REST 
+    84: uint32_t DWT_Counter; 
+    85: DWT->CYCCNT = 0;   // sub 6 
+    86:  DWT->CPICNT = 0;   // sub 2  
+    87:  DWT->EXCCNT = 0;         // sub 0 
+    88:  DWT->SLEEPCNT = 0; // sub 0 
+    89:  DWT->LSUCNT = 0;              // sub 0 
+    90:  DWT->FOLDCNT = 0;      // sub 0 
+    91: //--------------------------------DWT          
+    92:          
+    93:         while (Size--) 
+    94:         { 
+0x08002238 E008      B             0x0800224C
+    95:                 *im = *im + *meanParameter; 
+    96:                 im++; 
+    97:                 meanParameter++; 
+    98:         } 
+    99:          
+   100:         //--------------------------------DWT OUTPUT         
+0x0800223A BF00      NOP           
+0x0800223C ECF40A01  VLDMIA        r4!, {s1-s1}
+0x08002240 ED900A00  VLDR          s0,[r0,#0x00]
+0x08002244 EE300A20  VADD.F32      s0,s0,s1
+0x08002248 ECA00A01  VSTMIA        r0!, {s0-s0}
+0x0800224C 1E49      SUBS          r1,r1,#1
+    93:         while (Size--) 
+    94:         { 
+    95:                 *im = *im + *meanParameter; 
+    96:                 im++; 
+    97:                 meanParameter++; 
+    98:         } 
+    99:          
+   100:         //--------------------------------DWT OUTPUT         
+0x0800224E D2F5      BCS           0x0800223C
+   101: DWT_Counter=DWT->CYCCNT;        printf_s("  %d\r\n",DWT_Counter);               
+0x08002250 6851      LDR           r1,[r2,#0x04]
+0x08002252 A003      ADR           r0,{pc}+0x10  ; @0x08002260
+0x08002254 BC30      POP           {r4-r5}
+0x08002256 F001B89B  B.W           __0printf (0x08003390)
+0x0800225A 0000      DCW           0x0000
+0x0800225C 1000      DCW           0x1000
+0x0800225E E000      DCW           0xE000
+0x08002260 2020      DCW           0x2020
+0x08002262 6425      DCW           0x6425
+0x08002264 0A0D      DCW           0x0A0D
+0x08002266 0000      DCW           0x0000
+
+

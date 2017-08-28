@@ -3,9 +3,9 @@
 <title>Static Call Graph - [CNN_1\CNN_1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image CNN_1\CNN_1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Aug 28 16:33:50 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Aug 28 22:04:56 2017
 <BR><P>
-<H3>Maximum Stack Usage =      47784 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =      48816 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; Model_CNN_1_1 &rArr; LK_ReadData &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 <P>
@@ -990,13 +990,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c4]"></a>Model_CNN_1_1</STRONG> (Thumb, 312 bytes, Stack size 46360 bytes, main.o(i.Model_CNN_1_1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 47784<LI>Call Chain = Model_CNN_1_1 &rArr; LK_ReadData &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<P><STRONG><a name="[c4]"></a>Model_CNN_1_1</STRONG> (Thumb, 338 bytes, Stack size 47392 bytes, main.o(i.Model_CNN_1_1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48816<LI>Call Chain = Model_CNN_1_1 &rArr; LK_ReadData &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_ZeroCenterLayer
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_ReadDataLayer
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_ReadData
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_OpenFile
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1321,6 +1322,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_ReadData
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LK_OpenFile
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Model_CNN_1_1
 </UL>
 
 <P><STRONG><a name="[119]"></a>__c89printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
@@ -1491,7 +1493,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[6b]"></a>main</STRONG> (Thumb, 192 bytes, Stack size 0 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 47784<LI>Call Chain = main &rArr; Model_CNN_1_1 &rArr; LK_ReadData &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 48816<LI>Call Chain = main &rArr; Model_CNN_1_1 &rArr; LK_ReadData &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;testSD_UART
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
