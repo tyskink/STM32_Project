@@ -1,0 +1,2 @@
+Dependencies for Project 'M3test1', Target 'Target 1': (DO NOT MODIFY !)
+F (.\main.c)(0x59A42994)(--c99 -c --cpu Cortex-M3 --li -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\Device\ARM\ARMCM3\Include-D__UVISION_VERSION="523" -D_RTE_ -DARMCM3-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)

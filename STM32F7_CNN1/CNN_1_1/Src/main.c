@@ -235,46 +235,34 @@ void Model_CNN_1_1()  //float parameter, float computation
 
 //LK_displayMatrix(&F5W[0][0],10,864,"ZC");
 
-	int index = 60;
+	int index = 10000;
 	int ERRORCOUNT = 0;
 	 
 	 
 	while (index--)
 	{
 		float LABLE;
-		//LK_ReadDataLayer(&TestFeature, &FeaturesFILE);//H0
+		LK_ReadDataLayer(&TestFeature, &FeaturesFILE);//H0
 		//f_read(&FeaturesFILE, &Test_feature[0], 784*4, (UINT*)&bytesread); 
 		//f_read(&labelFILE, &LABLE, 4, (UINT*)&bytesread); 		
 		
-//--------------------------------DWT REST
-uint32_t DWT_Counter;
-DWT->CYCCNT = 0;   // sub 6
- DWT->CPICNT = 0;   // sub 2 
- DWT->EXCCNT = 0;	  // sub 0
- DWT->SLEEPCNT = 0; // sub 0
- DWT->LSUCNT = 0;		// sub 0
- DWT->FOLDCNT = 0;	// sub 0
-//--------------------------------DWT			
-		
+	
 		
 		LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1
 		
-//--------------------------------DWT OUTPUT		
-DWT_Counter=DWT->FOLDCNT;	printf_s("  count is %d\r\n",DWT_Counter);		
-//--------------------------------DWT END		
+	
 		
-		
-		LK_ConvReluPoolLayer(&TestFeature,&Conv1Kernel,&H2);
-		LK_FullyConnectLayer(&FC, &H2,	&H3);
+//		LK_ConvReluPoolLayer(&TestFeature,&Conv1Kernel,&H2);
+//		LK_FullyConnectLayer(&FC, &H2,	&H3);
 		//LK_Softmax(&h3[0], 10);
 		//LK_SoftmaxLayer(&H3);
 		//LK_displayMatrix(&h3[0], 10, 1, "h3");
-		maxofMatrix(&h3[0], 10);
+//		maxofMatrix(&h3[0], 10);
 		//printf_s("  label: %f result: %d	\r\n", LABLE,maxofMatrix(&h3[0], 10));
 		//LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10),&ERRORCOUNT);	
 	}
 	
-printf_s("   Error: %d", (ERRORCOUNT));
+//printf_s("   Error: %d", (ERRORCOUNT));
 
 }
 
@@ -384,8 +372,8 @@ int main(void)
 	testSD_UART();
 	
 //Model_CNN_ICRSF();
-//Model_CNN_1_1();
- Model_CNN_1_1_int();
+Model_CNN_1_1();
+ //Model_CNN_1_1_int();
  
  
  DWT->CYCCNT = 0;   // sub 6
