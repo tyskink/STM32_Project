@@ -392,6 +392,26 @@ void LK_DWT_RESET()
 
 }
 
+void LK_DWT_TEST()
+{
+
+		
+	
+//--------------------------------DWT REST
+ uint32_t DWT_Counter;
+ DWT->CYCCNT = 0;   // sub 6
+ DWT->CPICNT = 0;   // sub 2 
+ DWT->EXCCNT = 0;	  // sub 0
+ DWT->SLEEPCNT = 0; // sub 0
+ DWT->LSUCNT = 0;		// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+//--------------------------------DWT				
+
+//--------------------------------DWT OUTPUT		
+ DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
+//--------------------------------DWT END		
+}
+
 
 
 #if LK_UsingtheCubeMX

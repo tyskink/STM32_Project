@@ -77,7 +77,7 @@ void Model_CNN_ICRSF()
 	Test_feature=(LK_Accuarcy*)malloc(784*8);  	
 	
 			f_open(&File_X, (const TCHAR*)"DataSet/MNIST_train_features_60000_784_scale.lkf", FA_READ); 
-			int input=100;
+			int input=1000;
 	uint32_t time1,time2;
 	
 			LK_Accuarcy h3[10] = {0};//18.13738780
@@ -155,9 +155,28 @@ void Model_CNN_ICRSF()
 			 
 		f_open(&File_In, (const TCHAR*)"CNN_ZcCoReSuFuSm/C1K6.lkf", FA_READ);//17.09287550
 		f_read(&File_In, C1K, 25*4, (UINT*)&bytesread);//17.12623510
-		LK_convolutional2D(Test_feature, 28, 28, C1K, 5, 5, C1B[5], h1, 24, 24, 0);//17.14163070
+		
+		
+		
+		
+		//--------------------------------DWT REST
+uint32_t DWT_Counter;
+DWT->CYCCNT = 0;   // sub 6
+ DWT->CPICNT = 0;   // sub 2 
+ DWT->EXCCNT = 0;	  // sub 0
+ DWT->SLEEPCNT = 0; // sub 0
+ DWT->LSUCNT = 0;		// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+//--------------------------------DWT		
+
+LK_convolutional2D(Test_feature, 28, 28, C1K, 5, 5, C1B[5], h1, 24, 24, 0);//17.14163070
 		LK_ReLu(h1,576);//17.48993250
-		LK_Pooling_Max(h1, 24, 24, 2, 2, 2, 2, &h2[5][0][0], 12, 12, 1, 0);//17.49238840
+		LK_Pooling_Max(h1, 24, 24, 2, 2, 2, 2, &h2[5][0][0], 12, 12, 1, 0);//17.49238840		
+//--------------------------------DWT OUTPUT		
+DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
+//--------------------------------DWT END				
+
+
 		f_close(&File_In);	//17.49793380
 		
 		
@@ -179,61 +198,59 @@ void Model_CNN_ICRSF()
 		LK_FullyConnect(&F5W[0][0],10,864,&h2[0][0][0],&h3[0],&F5B[0]);
 		
 		LK_Softmax(&h3[0], 10);//18.28499600
-		printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
+		//printf_s("	Result is: %d",maxofMatrix(&h3[0], 10));//18.29939980
 	}
 		//
  time2=HAL_GetTick();
  LK_UART(&huart1,"{Z");	
-printf_s("  end: %d",time2-time1);
+//printf_s("  end: %d",time2-time1);
 }//18.32246530   or 4.74134970  46486762  47366363   **46471409   **47359281
 
 
 void Model_CNN_1_1()  //float parameter, float computation 
 {
-	#define DWT_SIZE 1000  //all size changed
-	UINT bytesread;
-	LK_Accuarcy_Data Test_feature[DWT_SIZE];
-	LK_Data TestFeature = {.W=28,.H=28,.D=1,.Size=DWT_SIZE,.Matrix=&Test_feature[0] };
+	
+		UINT bytesread;
+		LK_Accuarcy_Data Test_feature[784];
+		LK_Data TestFeature = {.W=28,.H=28,.D=1,.Size=784,.Matrix=&Test_feature[0] };
 
-	LK_FILE FeaturesFILE;
-	//f_open(FeaturesFILE, (const TCHAR*)"DataSet/MNIST_train_features_60000_784_scale.lkf", FA_READ); 
-	LK_OpenFile(&FeaturesFILE, "DataSet/MNIST_train_features_60000_784_scale.lkf");  //MNIST_train_features_60000_784_scale MNIST_test_features_10000_784_scale
+		LK_FILE FeaturesFILE;
+		LK_OpenFile(&FeaturesFILE, "DataSet/MNIST_train_features_60000_784_scale.lkf");  	//MNIST_train_features_60000_784_scale MNIST_test_features_10000_784_scale
 	 
-	LK_FILE labelFILE;
-	LK_OpenFile(&labelFILE, "DataSet/MNIST_train_label_60000_1.lkf");  //MNIST_train_label_60000_1  MNIST_test_label_10000_1
+		LK_FILE labelFILE;
+		LK_OpenFile(&labelFILE, "DataSet/MNIST_train_label_60000_1.lkf");								  //MNIST_train_label_60000_1  MNIST_test_label_10000_1
 
-	//ImageInput: Zerocenter
-	LK_Accuarcy_Data ZeroCenter_Parameters[784];
-	 LK_Data ZeroCenterParameter = { .W = 28,.H = 28,.D = 1,.Size = DWT_SIZE,.Matrix = &ZeroCenter_Parameters[0] };
-	LK_ReadData("CNN_ZcCoReSuFuSm/Zc.lkf", &ZeroCenter_Parameters[0], 784);
-	//LK_displayMatrix(&ZeroCenter_Parameters[0],28,28,"ZC");
+//ImageInput: Zerocenter
+		LK_Accuarcy_Data ZeroCenter_Parameters[784];
+		LK_Data ZeroCenterParameter = { .W = 28,.H = 28,.D = 1,.Size = 784,.Matrix = &ZeroCenter_Parameters[0] };
+		LK_ReadData("CNN_ZcCoReSuFuSm/Zc.lkf", &ZeroCenter_Parameters[0], 784);
+		//LK_displayMatrix(&ZeroCenter_Parameters[0],28,28,"ZC");
 	 
-	//Conv Relu MaxPoolling
-	LK_Accuarcy_Data C1K[6][5][5]; 
-	LK_Accuarcy_Data C1B[6];	
-	 LK_Kernel Conv1Kernel={.W=5, .H=5, .D=6, .Matrix= &C1K[0][0][0], .Bias= &C1B[0] ,.KernelSize=25};
-	LK_ReadData("CNN_ZcCoReSuFuSm/C1K1.lkf", &C1K[0][0][0], 5 * 5);
-	LK_ReadData("CNN_ZcCoReSuFuSm/C1K2.lkf", &C1K[1][0][0], 5 * 5);
-	LK_ReadData("CNN_ZcCoReSuFuSm/C1K3.lkf", &C1K[2][0][0], 5 * 5);
-	LK_ReadData("CNN_ZcCoReSuFuSm/C1K4.lkf", &C1K[3][0][0], 5 * 5);
-	LK_ReadData("CNN_ZcCoReSuFuSm/C1K5.lkf", &C1K[4][0][0], 5 * 5);
-	LK_ReadData("CNN_ZcCoReSuFuSm/C1K6.lkf", &C1K[5][0][0], 5 * 5);
-	LK_ReadData("CNN_ZcCoReSuFuSm/C1B.lkf", &C1B[0], 6);
-	LK_Accuarcy_Calculate h2[6][12][12];
-	 LK_Matrix H2={.W=12,.H=12,.D=6,.Size=864,.Matrix=&h2[0][0][0] };
-	//LK_displayMatrix3D(&C1K[0][0][0], 6, 5, 5, "C1K");
+//Conv Relu MaxPoolling
+		LK_Accuarcy_Data C1K[6][5][5]; 
+		LK_Accuarcy_Data C1B[6];	
+		LK_Kernel Conv1Kernel={.W=5, .H=5, .D=6, .Matrix= &C1K[0][0][0], .Bias= &C1B[0] ,.KernelSize=25};
+		LK_ReadData("CNN_ZcCoReSuFuSm/C1K1.lkf", &C1K[0][0][0], 5 * 5);
+		LK_ReadData("CNN_ZcCoReSuFuSm/C1K2.lkf", &C1K[1][0][0], 5 * 5);
+		LK_ReadData("CNN_ZcCoReSuFuSm/C1K3.lkf", &C1K[2][0][0], 5 * 5);
+		LK_ReadData("CNN_ZcCoReSuFuSm/C1K4.lkf", &C1K[3][0][0], 5 * 5);
+		LK_ReadData("CNN_ZcCoReSuFuSm/C1K5.lkf", &C1K[4][0][0], 5 * 5);
+		LK_ReadData("CNN_ZcCoReSuFuSm/C1K6.lkf", &C1K[5][0][0], 5 * 5);
+		LK_ReadData("CNN_ZcCoReSuFuSm/C1B.lkf", &C1B[0], 6);
+		LK_Accuarcy_Calculate h2[6][12][12];
+		LK_Matrix H2={.W=12,.H=12,.D=6,.Size=864,.Matrix=&h2[0][0][0] };
+		//LK_displayMatrix3D(&C1K[0][0][0], 6, 5, 5, "C1K");
 
 
-	LK_Accuarcy F5W[10][864] ;	
-	LK_Accuarcy F5B[10] ;
-	LK_ReadData("CNN_ZcCoReSuFuSm/F5W.lkf", &F5W[0][0], 864 * 10);
-	LK_ReadData("CNN_ZcCoReSuFuSm/F5B.lkf", &F5B[0], 10);
-	 LK_Kernel FC = { .W = 864,.H = 10,.D = 1,.Matrix = &F5W[0][0],.Bias = &F5B[0] ,.KernelSize = 25 };
+		LK_Accuarcy F5W[10][864] ;	
+		LK_Accuarcy F5B[10] ;
+		LK_ReadData("CNN_ZcCoReSuFuSm/F5W.lkf", &F5W[0][0], 864 * 10);
+		LK_ReadData("CNN_ZcCoReSuFuSm/F5B.lkf", &F5B[0], 10);
+		LK_Kernel FC = { .W = 864,.H = 10,.D = 1,.Matrix = &F5W[0][0],.Bias = &F5B[0] ,.KernelSize = 25 };
 
-	LK_Accuarcy_Calculate h3[10] ;
-	 LK_Matrix H3 = { .W = 1,.H = 10,.D = 1,.Size=10,.Matrix = &h3[0] };
-
-//LK_displayMatrix(&F5W[0][0],10,864,"ZC");
+		LK_Accuarcy_Calculate h3[10] ;
+		LK_Matrix H3 = { .W = 1,.H = 10,.D = 1,.Size=10,.Matrix = &h3[0] };
+		//LK_displayMatrix(&F5W[0][0],10,864,"ZC");
 
 	int index = 10000;
 	int ERRORCOUNT = 0;
@@ -242,12 +259,15 @@ void Model_CNN_1_1()  //float parameter, float computation
 	while (index--)
 	{
 		float LABLE;
-		LK_ReadDataLayer(&TestFeature, &FeaturesFILE);//H0
-		//f_read(&FeaturesFILE, &Test_feature[0], 784*4, (UINT*)&bytesread); 
-		//f_read(&labelFILE, &LABLE, 4, (UINT*)&bytesread); 		
 		
-	
-		//--------------------------------DWT REST
+	LK_ReadDataLayer(&TestFeature, &FeaturesFILE);//H0		
+	LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1		
+	LK_ConvReluPoolLayer(&TestFeature,&Conv1Kernel,&H2);		
+	LK_FullyConnectLayer(&FC, &H2,	&H3);			
+		//LK_Softmax(&h3[0], 10);
+		//LK_SoftmaxLayer(&H3);
+		//LK_displayMatrix(&h3[0], 10, 1, "h3");
+//--------------------------------DWT REST
 uint32_t DWT_Counter;
 DWT->CYCCNT = 0;   // sub 6
  DWT->CPICNT = 0;   // sub 2 
@@ -255,20 +275,18 @@ DWT->CYCCNT = 0;   // sub 6
  DWT->SLEEPCNT = 0; // sub 0
  DWT->LSUCNT = 0;		// sub 0
  DWT->FOLDCNT = 0;	// sub 0
-//--------------------------------DWT				
-		LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1
-	//--------------------------------DWT OUTPUT		
+//--------------------------------DWT		
+	
+		maxofMatrix(&h3[0], 10);
+//--------------------------------DWT OUTPUT		
 DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
 //--------------------------------DWT END		
-			
-	
+
 		
-//		LK_ConvReluPoolLayer(&TestFeature,&Conv1Kernel,&H2);
-//		LK_FullyConnectLayer(&FC, &H2,	&H3);
-		//LK_Softmax(&h3[0], 10);
-		//LK_SoftmaxLayer(&H3);
-		//LK_displayMatrix(&h3[0], 10, 1, "h3");
-//		maxofMatrix(&h3[0], 10);
+//		
+//		
+
+//		
 		//printf_s("  label: %f result: %d	\r\n", LABLE,maxofMatrix(&h3[0], 10));
 		//LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10),&ERRORCOUNT);	
 	}
@@ -280,7 +298,7 @@ DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);
 void Model_CNN_1_1_int()  //float parameter, float computation 
 {
 	LK_Accuarcy_Data Test_feature[784];
-	 LK_Data TestFeature = { .W = 28,.H = 28,.D = 1,.Size = 284,.Matrix = &Test_feature[0] };
+	 LK_Data TestFeature = { .W = 28,.H = 28,.D = 1,.Size = 0,.Matrix = &Test_feature[0] };
 
 	LK_FILE FeaturesFILE;
 	LK_OpenFile(&FeaturesFILE, "DataSet/MNIST_train_features_60000_784.lki");  //MNIST_train_features_60000_784  MNIST_test_features_10000_784
@@ -327,18 +345,18 @@ void Model_CNN_1_1_int()  //float parameter, float computation
 		LK_ReadDataLayer(&TestFeature, &FeaturesFILE);//H0
 
 //--------------------------------DWT REST
-uint32_t DWT_Counter;
-DWT->CYCCNT = 0;   // sub 6
- DWT->CPICNT = 0;   // sub 2 
- DWT->EXCCNT = 0;	  // sub 0
- DWT->SLEEPCNT = 0; // sub 0
- DWT->LSUCNT = 0;		// sub 0
- DWT->FOLDCNT = 0;	// sub 0
+//uint32_t DWT_Counter;
+//DWT->CYCCNT = 0;   // sub 6
+// DWT->CPICNT = 0;   // sub 2 
+// DWT->EXCCNT = 0;	  // sub 0
+// DWT->SLEEPCNT = 0; // sub 0
+// DWT->LSUCNT = 0;		// sub 0
+// DWT->FOLDCNT = 0;	// sub 0
 //--------------------------------DWT			
 		
 		LK_ZeroCenterLayer(&TestFeature, &ZeroCenterParameter);//H1
 //--------------------------------DWT OUTPUT		
-DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
+//DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
 //--------------------------------DWT END		
 
 		
@@ -350,12 +368,62 @@ DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);
 		//LK_SoftmaxLayer(&H3);
 		//LK_displayMatrix(&h3[0], 10, 1, "h3");
 		//printf_s("%d	\r\n", maxofMatrix(&h3[0], 10));
-//	LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10), &ERRORCOUNT);
+//	 LK_CheckResultLayer(&labelFILE, maxofMatrix(&h3[0], 10), &ERRORCOUNT);
 
 	}
 	printf_s("Error: %d", (ERRORCOUNT));
 	getchar();
 }
+
+void Model_ALUTEST()   
+{
+	#define SIZE 10000
+		LK_Accuarcy_Data T1_DATA[SIZE+1];
+	 LK_Data T1 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T1_DATA[0] };
+
+	 LK_Accuarcy_Data T2_DATA[SIZE+1];
+	 LK_Data T2 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T2_DATA[0] };
+	 
+	 
+	 
+	 LK_FILE T1FILE;
+		LK_OpenFile(&T1FILE, "DataTest/Randn_255_100_100.lki");   
+		//LK_OpenFile(&T1FILE, "DataTest/Randn_100_100_1.lkf "); 
+	 
+	 
+	LK_FILE T2FILE;
+	LK_OpenFile(&T2FILE, "DataTest/Randn_1024_100_100.lki");  
+	//LK_OpenFile(&T2FILE, "DataTest/Randn_100_100_5.lkf");  
+	 
+	LK_ReadDataLayer(&T1, &T1FILE);//H0
+	LK_ReadDataLayer(&T2, &T2FILE);//H0	 
+	 
+	int index = 10000;
+	int ERRORCOUNT = 0;
+	while (index--)
+	{
+
+		
+
+//--------------------------------DWT REST
+uint32_t DWT_Counter;
+DWT->CYCCNT = 0;   // sub 6
+ DWT->CPICNT = 0;   // sub 2 
+ DWT->EXCCNT = 0;	  // sub 0
+ DWT->SLEEPCNT = 0; // sub 0
+ DWT->LSUCNT = 0;		// sub 0
+ DWT->FOLDCNT = 0;	// sub 0
+//--------------------------------DWT			
+		
+		LK_ZeroCenterLayer(&T1, &T2);//H1
+//--------------------------------DWT OUTPUT		
+DWT_Counter=DWT->CPICNT;	printf_s("  %d\r\n",DWT_Counter);		
+//--------------------------------DWT END		
+
+	}
+}
+
+
  
 int main(void)
 {
@@ -383,16 +451,11 @@ int main(void)
 	testSD_UART();
 	
 //Model_CNN_ICRSF();
-Model_CNN_1_1();
- //Model_CNN_1_1_int();
+//Model_CNN_1_1();
+//Model_CNN_1_1_int();
+Model_ALUTEST();
  
- 
- DWT->CYCCNT = 0;   // sub 6
- DWT->CPICNT = 0;   // sub 2 
- DWT->EXCCNT = 0;	  // sub 0
- DWT->SLEEPCNT = 0; // sub 0
- DWT->LSUCNT = 0;		// sub 0
- DWT->FOLDCNT = 0;	// sub 0
+
  
  
  
