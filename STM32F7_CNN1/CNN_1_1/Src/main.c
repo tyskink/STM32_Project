@@ -377,7 +377,7 @@ void Model_CNN_1_1_int()  //float parameter, float computation
 
 void Model_ALUTEST()   
 {
-	#define SIZE 10000
+	#define SIZE 0
 	LK_Accuarcy_Data T1_DATA[SIZE+1]={1};
 	LK_Data T1 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T1_DATA[0] };
 
@@ -395,11 +395,12 @@ void Model_ALUTEST()
 	//LK_OpenFile(&T2FILE, "DataTest/Randn_100_100_5.lkf");  
 	
 	 
-//LK_ReadDataLayer(&T1, &T1FILE);//H0
+//
 //LK_ReadDataLayer(&T2, &T2FILE);//H0	 
 	 
 
-	 
+//LK_Randn(&T1_DATA[0],SIZE,HAL_GetTick());
+//LK_Randn(&T2_DATA[0],SIZE,HAL_GetTick());		 
 	 
 	 
 //LK_displayMatrix3D(&T1_DATA[0],1,SIZE,1,"T1_DATA");	 
@@ -408,8 +409,7 @@ void Model_ALUTEST()
 	int ERRORCOUNT = 0;	 
 	while (index--)
 	{
-LK_Randn(&T1_DATA[0],SIZE,HAL_GetTick());
-LK_Randn(&T2_DATA[0],SIZE,HAL_GetTick());		
+
 
 //--------------------------------DWT REST
 uint32_t DWT_Counter;
@@ -420,9 +420,9 @@ DWT->CYCCNT = 0;   // sub 6
  DWT->LSUCNT = 0;		// sub 0
  DWT->FOLDCNT = 0;	// sub 0
 //--------------------------------DWT			
-		
+	LK_ReadDataLayer(&T1, &T1FILE);//H0	
 		//LK_ZeroCenterLayer(&T1, &T2);//H1
-		LK_Multiplication_Dot(&T1_DATA[0],&T2_DATA[0],SIZE);
+		//LK_Multiplication_Dot(&T1_DATA[0],&T2_DATA[0],SIZE);
 //--------------------------------DWT OUTPUT		
 DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
 //--------------------------------DWT END		
