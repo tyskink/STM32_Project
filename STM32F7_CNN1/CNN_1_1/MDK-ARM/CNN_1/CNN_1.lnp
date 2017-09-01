@@ -1,4 +1,4 @@
---cpu Cortex-M7.fp.sp
+--cpu Cortex-M7 --fpu=SoftVFP
 "cnn_1\bsp_driver_sd.o"
 "cnn_1\stm32f7xx_hal_msp.o"
 "cnn_1\main.o"

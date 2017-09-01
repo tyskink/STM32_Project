@@ -378,41 +378,38 @@ void Model_CNN_1_1_int()  //float parameter, float computation
 void Model_ALUTEST()   
 {
 	#define SIZE 10000
-		LK_Accuarcy_Data T1_DATA[SIZE+1]={1};
-	 LK_Data T1 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T1_DATA[0] };
+	LK_Accuarcy_Data T1_DATA[SIZE+1]={1};
+	LK_Data T1 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T1_DATA[0] };
 
-	 LK_Accuarcy_Data T2_DATA[SIZE+1];
-	 LK_Data T2 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T2_DATA[0] };
+	LK_Accuarcy_Data T2_DATA[SIZE+1];
+	LK_Data T2 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T2_DATA[0] }; 
 	 
-	 
-	 
-	 LK_FILE T1FILE;
-		//LK_OpenFile(&T1FILE, "DataTest/Randn_255_100_100.lki");   
-		//LK_OpenFile(&T1FILE, "DataTest/Randn_100_100_1.lkf "); 
-	 LK_Randi(&T1_DATA[0],SIZE,HAL_GetTick());
-	 //LK_displayMatrix3D(&T1_DATA[0],1,SIZE,1,"T1_DATA");
-	 
-	 
+	LK_FILE T1FILE;
+	LK_OpenFile(&T1FILE, "DataTest/Randn_255_1e8_1.lki");  
+	//LK_OpenFile(&T1FILE, "DataTest/Randn_255_100_100.lki");   
+	//LK_OpenFile(&T1FILE, "DataTest/Randn_100_100_1.lkf "); 
+
 	LK_FILE T2FILE;
+	LK_OpenFile(&T1FILE, "DataTest/Randn_255_1e8_2.lki"); 
 	//LK_OpenFile(&T2FILE, "DataTest/Randn_1024_100_100.lki");  
 	//LK_OpenFile(&T2FILE, "DataTest/Randn_100_100_5.lkf");  
-	LK_Randi(&T2_DATA[0],SIZE,HAL_GetTick());
+	
 	 
-	//LK_ReadDataLayer(&T1, &T1FILE);//H0
-	//LK_ReadDataLayer(&T2, &T2FILE);//H0	 
+//LK_ReadDataLayer(&T1, &T1FILE);//H0
+//LK_ReadDataLayer(&T2, &T2FILE);//H0	 
 	 
-	int index = 10000;
-	int ERRORCOUNT = 0;
-	 
+
 	 
 	 
 	 
+//LK_displayMatrix3D(&T1_DATA[0],1,SIZE,1,"T1_DATA");	 
 	 //getchar();
-	 
+	int index = 10000;
+	int ERRORCOUNT = 0;	 
 	while (index--)
 	{
-
-		
+LK_Randn(&T1_DATA[0],SIZE,HAL_GetTick());
+LK_Randn(&T2_DATA[0],SIZE,HAL_GetTick());		
 
 //--------------------------------DWT REST
 uint32_t DWT_Counter;
