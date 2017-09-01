@@ -41,23 +41,28 @@ K_Accuarcy ReLu();
   	uint32_t time1,time2;
 ../Src/main.c(261): warning:  #177-D: variable "LABLE"  was declared but never referenced
   		float LABLE;
-../Src/main.c(385): warning:  #177-D: variable "T2"  was declared but never referenced
-  	LK_Data T2 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T2_DATA[0] }; 
-../Src/main.c(392): warning:  #177-D: variable "T2FILE"  was declared but never referenced
-  	LK_FILE T2FILE;
-../Src/main.c(409): warning:  #177-D: variable "ERRORCOUNT"  was declared but never referenced
-  	int ERRORCOUNT = 0;	 
-B[0] ,.KernelSize = 25 };
+../Src/main.c(213): warning:  #177-D: variable "bytesread"  was declared but never referenced
+  		UINT bytesread;
+../Src/main.c(256): warning:  #177-D: variable "ERRORCOUNT"  was declared but never referenced
+  	int ERRORCOUNT = 0;
+../Src/main.c(317): warning:  #177-D: variable "Conv1Kernel"  was declared but never referenced
+  	 LK_Kernel Conv1Kernel = { .W = 5,.H = 5,.D = 6,.Matrix = &C1K[0][0][0],.Bias = &C1B[0] ,.KernelSize = 25 };
 ../Src/main.c(326): warning:  #177-D: variable "H2"  was declared but never referenced
   	 LK_Matrix H2 = { .W = 12,.H = 12,.D = 6,.Size = 864,.Matrix = &h2[0][0][0] };
 ../Src/main.c(334): warning:  #177-D: variable "FC"  was declared but never referenced
   	 LK_Kernel FC = { .W = 864,.H = 10,.D = 1,.Matrix = &F5W[0][0],.Bias = &F5B[0] ,.KernelSize = 25 };
 ../Src/main.c(337): warning:  #177-D: variable "H3"  was declared but never referenced
   	 LK_Matrix H3 = { .W = 1,.H = 10,.D = 1,.Size = 10,.Matrix = &h3[0] };
+../Src/main.c(387): warning:  #177-D: variable "T2"  was declared but never referenced
+  	LK_Data T2 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T2_DATA[0] }; 
+../Src/main.c(400): warning:  #177-D: variable "T2FILE"  was declared but never referenced
+  	LK_FILE T2FILE;
+../Src/main.c(416): warning:  #177-D: variable "ERRORCOUNT"  was declared but never referenced
+  	int ERRORCOUNT = 0;	 
 ../Src/main.c: 15 warnings, 0 errors
 linking...
-Program Size: Code=20868 RO-data=2208 RW-data=32 ZI-data=259496  
-"CNN_1\CNN_1.axf" - 0 Error(s), 12 Warning(s).
+Program Size: Code=21212 RO-data=2216 RW-data=36 ZI-data=259500  
+"CNN_1\CNN_1.axf" - 0 Error(s), 15 Warning(s).
 
 <h2>Software Packages used:</h2>
 

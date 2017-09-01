@@ -377,13 +377,21 @@ void Model_CNN_1_1_int()  //float parameter, float computation
 
 void Model_ALUTEST()   
 {
-	#define SIZE 0
-	LK_Accuarcy_Data T1_DATA[SIZE+1]={1};
-	LK_Data T1 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T1_DATA[0] };
+	#define SIZE 7840
+	#define SIZE_W 10
+	#define SIZE_L 784
+	LK_Accuarcy_Data T1_DATA[SIZE_W*SIZE_L]={1};
+  LK_Data T1 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T1_DATA[0] };
 
-	LK_Accuarcy_Data T2_DATA[SIZE+1];
+	LK_Accuarcy_Data T2_DATA[SIZE_L];
 	LK_Data T2 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T2_DATA[0] }; 
 	 
+	LK_Accuarcy F5B[10]={1};
+	LK_Accuarcy h3[10]={1};
+	
+	
+	
+	
 	LK_FILE T1FILE;
 	LK_OpenFile(&T1FILE, "DataTest/Randn_255_1e8_1.lki");  
 	//LK_OpenFile(&T1FILE, "DataTest/Randn_255_100_100.lki");   
@@ -399,8 +407,7 @@ void Model_ALUTEST()
 //LK_ReadDataLayer(&T2, &T2FILE);//H0	 
 	 
 
-//LK_Randn(&T1_DATA[0],SIZE,HAL_GetTick());
-//LK_Randn(&T2_DATA[0],SIZE,HAL_GetTick());		 
+ 
 	 
 	 
 //LK_displayMatrix3D(&T1_DATA[0],1,SIZE,1,"T1_DATA");	 
@@ -409,7 +416,8 @@ void Model_ALUTEST()
 	int ERRORCOUNT = 0;	 
 	while (index--)
 	{
-
+LK_Randn(&T1_DATA[0],SIZE_W*SIZE_L,HAL_GetTick());
+LK_Randn(&T2_DATA[0],SIZE_L,HAL_GetTick());		
 
 //--------------------------------DWT REST
 uint32_t DWT_Counter;
@@ -420,9 +428,11 @@ DWT->CYCCNT = 0;   // sub 6
  DWT->LSUCNT = 0;		// sub 0
  DWT->FOLDCNT = 0;	// sub 0
 //--------------------------------DWT			
-	LK_ReadDataLayer(&T1, &T1FILE);//H0	
+		LK_FullyConnect(&T1_DATA[0],SIZE_W,SIZE_L,&T2_DATA[0],&h3[0],&F5B[0]);
 		//LK_ZeroCenterLayer(&T1, &T2);//H1
 		//LK_Multiplication_Dot(&T1_DATA[0],&T2_DATA[0],SIZE);
+		LK_ReadDataLayer(&T1, &T1FILE);//H0	
+		maxofMatrix(&T1_DATA[0], 10000);
 //--------------------------------DWT OUTPUT		
 DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
 //--------------------------------DWT END		

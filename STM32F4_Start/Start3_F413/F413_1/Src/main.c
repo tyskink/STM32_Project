@@ -64,13 +64,14 @@ int main(void)
   SystemClock_Config();
   MX_GPIO_Init();
   MX_USART3_UART_Init();
-	
-	
 	printf_s("  Hello Word!");
 	
-	LK_UART(&huart3,"hello word!\r\n");
 	
-	HAL_UART_Transmit(&huart3, "hello word" , 1, 0xFF);
+	
+	
+	
+	
+	
   while (1)
   {
 
