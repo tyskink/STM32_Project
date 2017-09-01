@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp
+"f413_1\stm32f4xx_hal_msp.o"
+"f413_1\main.o"
+"f413_1\stm32f4xx_it.o"
+"f413_1\lk_stm32.o"
+"f413_1\system_stm32f4xx.o"
+"f413_1\startup_stm32f413xx.o"
+"f413_1\stm32f4xx_hal_pwr_ex.o"
+"f413_1\stm32f4xx_hal_dma.o"
+"f413_1\stm32f4xx_hal_uart.o"
+"f413_1\stm32f4xx_hal_rcc_ex.o"
+"f413_1\stm32f4xx_hal_rcc.o"
+"f413_1\stm32f4xx_hal_flash_ramfunc.o"
+"f413_1\stm32f4xx_hal_tim.o"
+"f413_1\stm32f4xx_hal.o"
+"f413_1\stm32f4xx_hal_cortex.o"
+"f413_1\stm32f4xx_hal_pwr.o"
+"f413_1\stm32f4xx_hal_flash_ex.o"
+"f413_1\stm32f4xx_hal_flash.o"
+"f413_1\stm32f4xx_hal_gpio.o"
+"f413_1\stm32f4xx_hal_dma_ex.o"
+"f413_1\stm32f4xx_hal_tim_ex.o"
+--library_type=microlib --strict --scatter "F413_1\F413_1.sct"
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "F413_1.map" -o F413_1\F413_1.axf

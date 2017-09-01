@@ -10,8 +10,8 @@
 	 
 #include <stdio.h>
 
-		#include "stm32f7xx_hal.h"
-
+//#include "stm32f7xx_hal.h"
+#include "stm32f4xx_hal.h"
 //			#include "stm32l0xx_hal.h "
 
 
@@ -21,8 +21,22 @@
 
 #define LK_UsingtheCubeMX 0	   //0 means disable the confilct function
 
-extern UART_HandleTypeDef huart1;
+ 
 
+#ifdef STM32F746xx
+extern UART_HandleTypeDef huart1;
+#define USART_PRINTF huart1
+#endif
+
+#ifdef STM32F413xx
+extern UART_HandleTypeDef huart3;
+#define USART_PRINTF huart3
+#endif	 
+	 
+	 
+	 
+	 
+	 
 void MX_USART1_UART_Init(void);	 
 	 
 typedef enum 

@@ -2,7 +2,15 @@
 
 #include "LK_STM32.h"
 
+#ifdef STM32F746xx
 UART_HandleTypeDef huart1;
+#define USART_PRINTF huart1
+#endif
+
+#ifdef STM32F413xx
+UART_HandleTypeDef huart3;
+#define USART_PRINTF huart3
+#endif
 //----------------------------------------------------------------------------  LED API  -----------------------------------------------------------------
 
 //		GPIO_InitTypeDef  gpio_init_structure;
@@ -144,7 +152,7 @@ int fputc(int ch, FILE *f) {
 	{
  char *dataString;
 	*dataString=ch;
-   HAL_UART_Transmit(&huart1, (uint8_t *)dataString , 1, 0xFF);
+   HAL_UART_Transmit(&USART_PRINTF, (uint8_t *)dataString , 1, 0xFF);
     return ch;
 	}
 	else
@@ -176,7 +184,7 @@ static void MX_USART1_UART_Init(void)
 
 }
 */
-
+#ifndef STM32F413xx
   void MX_USART1_UART_Init(void)
 {
 
@@ -196,6 +204,7 @@ static void MX_USART1_UART_Init(void)
   }
 
 }
+#endif
 //-------------------------------------------------------------------------- SDMMC API  -------------------------------------------------------------------------------
 /**
   * @brief  Initializes the SD MSP.
@@ -357,6 +366,8 @@ void CORECheck(void) // sourcer32@gmail.com
 
 void LK_DWT_Enable()
 {
+	
+	#ifdef STM32F746xx
 			uint32_t DWT_Counter;
 	    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; 	  	// enable trace
       DWT->LAR = 0xC5ACCE55; 																// <-- added unlock access to DWT (ITM, etc.)registers 
@@ -368,7 +379,7 @@ void LK_DWT_Enable()
 										DWT_CTRL_SLEEPEVTENA_Msk|
 										DWT_CTRL_LSUEVTENA_Msk|
 										DWT_CTRL_FOLDEVTENA_Msk;									
-	
+	#endif
 	
 //			DWT->CPICNT;		// counts cycles per instruction
 //			DWT->EXCCNT;		// counts cycles during ISR entry and return
