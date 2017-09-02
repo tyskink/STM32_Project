@@ -454,6 +454,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\..\..\LKML_C\Src\LKML_FileIO_FATFS.h</FilePath>
             </File>
+            <File>
+              <FileName>LKML_DecisionTree.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\LKML_C\Src\LKML_DecisionTree.c</FilePath>
+            </File>
+            <File>
+              <FileName>LKML_DecisionTree.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\LKML_C\Src\LKML_DecisionTree.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

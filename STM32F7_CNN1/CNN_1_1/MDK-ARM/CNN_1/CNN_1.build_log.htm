@@ -22,17 +22,23 @@ Dialog DLL:      TCM.DLL V1.27.0.0
  
 <h2>Project:</h2>
 C:\Users\kongq\Desktop\STM32_Project\STM32F7_CNN1\CNN_1_1\MDK-ARM\CNN_1.uvprojx
-Project File Date:  08/28/2017
+Project File Date:  09/02/2017
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'CNN_1'
+compiling LKML_DecisionTree.c...
+..\..\..\..\LKML_C\Src\LKML_DecisionTree.h(61): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\..\..\..\LKML_C\Src\LKML_DecisionTree.c: 1 warning, 0 errors
 compiling main.c...
 ..\..\..\..\LKML_C\Src\LKML_Math.h(16): warning:  #1295-D: Deprecated declaration ReLu - give arg types
   
 K_Accuarcy ReLu();
 ..\..\..\..\STM32_Project\LK_fatfs.h(70): warning:  #1295-D: Deprecated declaration testSD_UART - give arg types
   void testSD_UART();
+..\..\..\..\LKML_C\Src\LKML_DecisionTree.h(61): warning:  #1-D: last line of file ends without a newline
+  #endif
 ../Src/main.c(75): warning:  #177-D: variable "byteswritten"  was declared but never referenced
   	uint32_t byteswritten, bytesread;  
 ../Src/main.c(81): warning:  #550-D: variable "time1"  was set but never used
@@ -53,16 +59,22 @@ K_Accuarcy ReLu();
   	 LK_Kernel FC = { .W = 864,.H = 10,.D = 1,.Matrix = &F5W[0][0],.Bias = &F5B[0] ,.KernelSize = 25 };
 ../Src/main.c(337): warning:  #177-D: variable "H3"  was declared but never referenced
   	 LK_Matrix H3 = { .W = 1,.H = 10,.D = 1,.Size = 10,.Matrix = &h3[0] };
-../Src/main.c(387): warning:  #177-D: variable "T2"  was declared but never referenced
+../Src/main.c(386): warning:  #177-D: variable "T1"  was declared but never referenced
+    LK_Data T1 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T1_DATA[0] };
+../Src/main.c(389): warning:  #177-D: variable "T2"  was declared but never referenced
   	LK_Data T2 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T2_DATA[0] }; 
-../Src/main.c(400): warning:  #177-D: variable "T2FILE"  was declared but never referenced
+../Src/main.c(391): warning:  #177-D: variable "F5B"  was declared but never referenced
+  	LK_Accuarcy F5B[10]={1};
+../Src/main.c(392): warning:  #177-D: variable "h3"  was declared but never referenced
+  	LK_Accuarcy h3[10]={1};
+../Src/main.c(402): warning:  #177-D: variable "T2FILE"  was declared but never referenced
   	LK_FILE T2FILE;
-../Src/main.c(416): warning:  #177-D: variable "ERRORCOUNT"  was declared but never referenced
+../Src/main.c(418): warning:  #177-D: variable "ERRORCOUNT"  was declared but never referenced
   	int ERRORCOUNT = 0;	 
-../Src/main.c: 15 warnings, 0 errors
+../Src/main.c: 19 warnings, 0 errors
 linking...
-Program Size: Code=21212 RO-data=2216 RW-data=36 ZI-data=259500  
-"CNN_1\CNN_1.axf" - 0 Error(s), 15 Warning(s).
+Program Size: Code=21184 RO-data=2312 RW-data=36 ZI-data=259500  
+"CNN_1\CNN_1.axf" - 0 Error(s), 20 Warning(s).
 
 <h2>Software Packages used:</h2>
 

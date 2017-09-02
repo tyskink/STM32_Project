@@ -56,7 +56,7 @@
 #include "LKML_FileIO_FATFS.h"
 #include <stdlib.h>	/* malloc */
 #include <string.h> /* memset */
-//#include "LKML_DecisionTree.h"
+#include "LKML_DecisionTree.h"
 SD_HandleTypeDef hsd1;
 
 
@@ -375,6 +375,8 @@ void Model_CNN_1_1_int()  //float parameter, float computation
 	getchar();
 }
 
+
+
 void Model_ALUTEST()   
 {
 	#define SIZE 7840
@@ -412,7 +414,7 @@ void Model_ALUTEST()
 	 
 //LK_displayMatrix3D(&T1_DATA[0],1,SIZE,1,"T1_DATA");	 
 	 //getchar();
-	int index = 10000;
+	int index = 1;
 	int ERRORCOUNT = 0;	 
 	while (index--)
 	{
@@ -428,11 +430,14 @@ DWT->CYCCNT = 0;   // sub 6
  DWT->LSUCNT = 0;		// sub 0
  DWT->FOLDCNT = 0;	// sub 0
 //--------------------------------DWT			
-		LK_FullyConnect(&T1_DATA[0],SIZE_W,SIZE_L,&T2_DATA[0],&h3[0],&F5B[0]);
+		//LK_FullyConnect(&T1_DATA[0],SIZE_W,SIZE_L,&T2_DATA[0],&h3[0],&F5B[0]);
 		//LK_ZeroCenterLayer(&T1, &T2);//H1
 		//LK_Multiplication_Dot(&T1_DATA[0],&T2_DATA[0],SIZE);
-		LK_ReadDataLayer(&T1, &T1FILE);//H0	
-		maxofMatrix(&T1_DATA[0], 10000);
+		//LK_ReadDataLayer(&T1, &T1FILE);//H0	
+		//maxofMatrix(&T1_DATA[0], 10000);
+		
+		DecisionTree_Model_1();
+		
 //--------------------------------DWT OUTPUT		
 DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
 //--------------------------------DWT END		
