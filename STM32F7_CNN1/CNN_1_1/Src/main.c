@@ -380,8 +380,8 @@ void Model_CNN_1_1_int()  //float parameter, float computation
 void Model_ALUTEST()   
 {
 	#define SIZE 7840
-	#define SIZE_W 10
-	#define SIZE_L 784
+	#define SIZE_W 10		//output
+	#define SIZE_L 800   //input
 	LK_Accuarcy_Data T1_DATA[SIZE_W*SIZE_L]={1};
   LK_Data T1 = { .W = 28,.H = 28,.D = 1,.Size = SIZE,.Matrix = &T1_DATA[0] };
 
@@ -414,7 +414,7 @@ void Model_ALUTEST()
 	 
 //LK_displayMatrix3D(&T1_DATA[0],1,SIZE,1,"T1_DATA");	 
 	 //getchar();
-	int index = 1;
+	int index = 10000;
 	int ERRORCOUNT = 0;	 
 	while (index--)
 	{
@@ -430,14 +430,14 @@ DWT->CYCCNT = 0;   // sub 6
  DWT->LSUCNT = 0;		// sub 0
  DWT->FOLDCNT = 0;	// sub 0
 //--------------------------------DWT			
-		//LK_FullyConnect(&T1_DATA[0],SIZE_W,SIZE_L,&T2_DATA[0],&h3[0],&F5B[0]);
+		LK_FullyConnect(&T1_DATA[0],SIZE_W,SIZE_L,&T2_DATA[0],&h3[0],&F5B[0]);
 		//LK_ZeroCenterLayer(&T1, &T2);//H1
 		//LK_Multiplication_Dot(&T1_DATA[0],&T2_DATA[0],SIZE);
 		//LK_ReadDataLayer(&T1, &T1FILE);//H0	
 		//maxofMatrix(&T1_DATA[0], 10000);
 		
-		DecisionTree_Model_1();
-		
+		//DecisionTree_Model_1();
+		//LK_GaussianKernel(&T1_DATA[0],&T2_DATA[0]);
 //--------------------------------DWT OUTPUT		
 DWT_Counter=DWT->CYCCNT;	printf_s("  %d\r\n",DWT_Counter);		
 //--------------------------------DWT END		
@@ -473,7 +473,7 @@ int main(void)
 	testSD_UART();
 	
 //Model_CNN_ICRSF();
-//Model_CNN_1_1();
+Model_CNN_1_1();
 //Model_CNN_1_1_int();
 Model_ALUTEST();
  
