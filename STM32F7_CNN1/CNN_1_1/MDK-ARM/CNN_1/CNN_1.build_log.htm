@@ -27,10 +27,22 @@ Project File Date:  09/02/2017
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'CNN_1'
-compiling main.c...
-..\..\..\..\LKML_C\Src\LKML_Math.h(16): warning:  #1295-D: Deprecated declaration ReLu - give arg types
+compiling LKML_Math.c...
+..\..\..\..\LKML_C\Src\LKML_Math.h(32): warning:  #1295-D: Deprecated declaration ReLu - give arg types
   
 K_Accuarcy ReLu();
+..\..\..\..\LKML_C\Src\LKML_Math.c(507): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		return exp2f(-Accumulator* 
+K_SVM_Gamma);
+..\..\..\..\LKML_C\Src\LKML_Math.c(550): warning:  #177-D: variable "b"  was declared but never referenced
+  int b[10];
+..\..\..\..\LKML_C\Src\LKML_Math.c: 3 warnings, 0 errors
+compiling main.c...
+..\..\..\..\LKML_C\Src\LKML_Math.h(32): warning:  #1295-D: Deprecated declaration ReLu - give arg types
+  
+K_Accuarcy ReLu();
+..\..\..\..\STM32_Project\LK_fatfs.h(70): warning:  #1295-D: Deprecated declaration testSD_UART - give arg types
+  void testSD_UART();
 ..\..\..\..\LKML_C\Src\LKML_DecisionTree.h(64): warning:  #1-D: last line of file ends without a newline
   #endif
 ../Src/main.c(75): warning:  #177-D: variable "byteswritten"  was declared but never referenced
@@ -64,7 +76,7 @@ K_Accuarcy ReLu();
 ../Src/main.c: 17 warnings, 0 errors
 linking...
 Program Size: Code=22592 RO-data=2216 RW-data=36 ZI-data=261804  
-"CNN_1\CNN_1.axf" - 0 Error(s), 16 Warning(s).
+"CNN_1\CNN_1.axf" - 0 Error(s), 20 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -82,7 +94,7 @@ Package Vendor: ARM
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.2
-Build Time Elapsed:  00:00:10
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

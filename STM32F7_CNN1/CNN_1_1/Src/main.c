@@ -418,8 +418,8 @@ void Model_ALUTEST()
 	int ERRORCOUNT = 0;	 
 	while (index--)
 	{
-LK_Randn(&T1_DATA[0],SIZE_W*SIZE_L,HAL_GetTick());
-LK_Randn(&T2_DATA[0],SIZE_L,HAL_GetTick());		
+LK_Rand(&T1_DATA[0],SIZE_W*SIZE_L,HAL_GetTick());
+LK_Rand(&T2_DATA[0],SIZE_L,HAL_GetTick());		
 
 //--------------------------------DWT REST
 uint32_t DWT_Counter;
